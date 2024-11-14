@@ -1,4 +1,4 @@
-# TFG-Red-neuronal-turbinas-eolicas
+# TFG-Plataforma para la predicción de potencia eléctrica generada en parques eólicos usando técnicas de machine learning
 Repositorio que refleja el desarrollo de mi proyecto de fin de grado
 
 # Archivos
