@@ -1,7 +1,8 @@
 # TFG-Plataforma para la predicción de potencia eléctrica generada en parques eólicos usando técnicas de machine learning
 Repositorio que refleja el desarrollo de mi proyecto de fin de grado
 
-# Archivos
+# Modelos
+Carpeta que contiene todos los archivos relacionados con la creación de los modelos y el estudio de los datos.
 
 - [Analisis_viento_potencia.ipynb](https://github.com/Lucia1009/TFG-Red-neuronal-turbinas-eolicas/blob/main/Analisis_viento_potencia.ipynb "Analisis_viento_potencia.ipynb"): notebook con representaciones gráficas de los datos para una mayor comprensión de los mismos. Contiene gráficas de
 	- Potencia del parque frente al viento
