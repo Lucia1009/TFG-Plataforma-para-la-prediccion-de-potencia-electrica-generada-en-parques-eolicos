@@ -9,9 +9,13 @@ Carpeta que contiene todos los archivos relacionados con la creación de los mod
 	- Potencia de cada turbina frente al viento
 	- Ángulo de pitch de cada turbina frente al viento
 
+- [Comparacion_modelos_series_temporales.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/Comparacion_modelos_series_temporales.ipynb "Comparacion_modelos_series_temporales.ipynb"): Notebook que toma datos reales de viento, dirección de viento y temperatura desde enero de 2023 hasta diciembre de 2024 y los compara con 10 modelos de series temporales mediante el cálculo del r2_score, mse y mae. También se hace la comparación con los errores de tomar las variables en la hora anterior.
+
 - [Documento_potencia_sin_saltos.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/Documento_potencia_sin_saltos.ipynb "Documento_potencia_sin_saltos.ipynb"): notebook que contiene un código que permite guardar en un único csv los datos de potencias de varios documentos de datos que mantienen el mismo desalineamiento durante todo el registro. Obtiene las potencias (WF_Power) para velocidades de viento (ws) de 5, 10, 15 y 20 m/s  para los 360 grados de orientación (wd) y las guarda en un fichero. Finalmente representa en una gráfica polar y una plana el resultado para poder ver el efecto sombra de forma aislada.
 
 - [Efecto_sombra_vs_yaw_ref.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/Efecto_sombra_vs_yaw_ref.ipynb "Efecto_sombra_vs_yaw_ref.ipynb"): notebook que contiene varias gráficas dinámicas que permiten comparar la potencia obtenida cuando las turbinas están perfectamente orientadas hacia el viento (yaw_ref=wd) y cuando están ligeramente desorientadas (yaw_ref=wd-10). También compara y representa la diferencia de potencia entre los distintos ángulos de viento y entre los datos orientados y desorientados.
+
+- [Series_temporales.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/Series_temporales.ipynb "Series_temporales.ipynb"): notebook con un modelo LSTM para la predicción de series temporales. Utiliza la velocidad de viento, dirección de viento y setpoint para predecir la potencia del parque completo.
 
 - [YDF_datos_variados.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/YDF_datos_variados.ipynb "YDF_datos_variados.ipynb"): Notebook con un modelo básico de random forest para comprobar si los nuevos datos generan buenos modelos. Utiliza un histograma para la detección de errores. Compara el error obtenido del modelo con el error producido asumiendo que el valor de la potencia del dato de test equivale al valor de la potencia del instante de tiempo anterior.
 
@@ -26,6 +30,4 @@ Carpeta que contiene todos los archivos relacionados con la creación de los mod
 - [predicción_potencias_individuales_con_regresión.ipyn](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/predicci%C3%B3n_potencias_individuales_con_regresi%C3%B3n.ipynb "predicción_potencias_individuales_con_regresión.ipyn"): notebook con los dos modelos de regresión adaptados para predecir las potencias individuales de cada turbina en base a sus velocidades. Predicen todas las potencias individuales a la vez y tienen como datos de entrada todas las velociades individuales y el seno y coseno del ángulo del viento.
 
 - [pruebas_hiperparámetros.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/pruebas_hiperpar%C3%A1metros.ipynb "pruebas_hiperparámetros.ipynb"): notebook en el que se prueban los distintos parámetros de los modelos generales para elegir los más adecuados.
-
-
 
