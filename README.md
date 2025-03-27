@@ -1,7 +1,7 @@
 # TFG-Plataforma para la predicción de potencia eléctrica generada en parques eólicos usando técnicas de machine learning
 Repositorio que refleja el desarrollo de mi proyecto de fin de grado
 
-# Modelos
+## Modelos
 Carpeta que contiene todos los archivos relacionados con la creación de los modelos y el estudio de los datos.
 
 - [Analisis_viento_potencia.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/Analisis_viento_potencia.ipynb "Analisis_viento_potencia.ipynb"): notebook con representaciones gráficas de los datos para una mayor comprensión de los mismos. Contiene gráficas de
@@ -19,6 +19,8 @@ Carpeta que contiene todos los archivos relacionados con la creación de los mod
 
 - [YDF_datos_variados.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/YDF_datos_variados.ipynb "YDF_datos_variados.ipynb"): Notebook con un modelo básico de random forest para comprobar si los nuevos datos generan buenos modelos. Utiliza un histograma para la detección de errores. Compara el error obtenido del modelo con el error producido asumiendo que el valor de la potencia del dato de test equivale al valor de la potencia del instante de tiempo anterior.
 
+- [comp_datos_modelos_santiago.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/comp_datos_modelos_santiago.ipynb "comp_datos_modelos_santiago.ipynb"): Notebook que toma datos de la estación meteorológica en Santiago de Compostla y compara los datos con el histórico de la página de modelos de series temporales para observar si los datos son precisos. También lo compara con las predicciones históricas de la página.
+
 - [comparacion_potencia_individual_y_general.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/comparacion_potencia_individual_y_general.ipynb "comparacion_potencia_individual_y_general.ipynb"): notebook que contiene los modelos de regresión lineal y random forest tanto para la predicción de potencia de todo el parque, como para las potencias individuales. Crea una gráfica para cada modelo que representa los datos reales y los predichos por cada versión del modelo (de las potencias individuales hace la suma). También calcula el r2_score, el error cuadrático medio *(mse)* y el error absoluto medio *(mae)* de ambos modelos y los compara.
 
 - [comparar_reales_pagina.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/comparar_reales_pagina.ipynb "comparar_reales_pagina.ipynb"): Notebook que compara los datos históricos obtenidos en la [página de modelos de climatología mundial](https://open-meteo.com/en/docs "página de modelos de climatología mundial") con [datos históricos reales de Berlín](https://www.dwd.de/DE/klimaumwelt/cdc/cdc_node.html "datos históricos reales de Berlín").
@@ -35,3 +37,9 @@ Carpeta que contiene todos los archivos relacionados con la creación de los mod
 
 - [pruebas_hiperparámetros.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/pruebas_hiperpar%C3%A1metros.ipynb "pruebas_hiperparámetros.ipynb"): notebook en el que se prueban los distintos parámetros de los modelos generales para elegir los más adecuados.
 
+## Fuentes de los datos
+- [Página de modelos de series temporales para predicción de datos meteorológicos](https://open-meteo.com/en/docs "Página de modelos de series temporales para predicción de datos meteorológicos")
+
+- [Datos meteorológicos de Alemania](https://www.dwd.de/DE/klimaumwelt/cdc/cdc_node.html "Datos meteorológicos de Alemania")
+
+- [Datos meteorológicos de Galicia](https://www.meteogalicia.gal/web/observacion/rede-meteoroloxica/historico "Datos meteorológicos de Galicia")
