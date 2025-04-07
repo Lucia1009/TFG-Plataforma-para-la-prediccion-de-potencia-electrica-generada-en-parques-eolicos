@@ -17,8 +17,8 @@ def main():
     # Parámetros para el forecast
     url = "https://api.open-meteo.com/v1/forecast"
     params = {
-        "latitude": 52.52,
-        "longitude": 13.41,
+        "latitude": 42.87596,
+        "longitude": -8.559434,
         "hourly": ["temperature_2m", "wind_speed_10m", "wind_direction_10m"],
         "past_days": 0,
         "forecast_days": 16,
