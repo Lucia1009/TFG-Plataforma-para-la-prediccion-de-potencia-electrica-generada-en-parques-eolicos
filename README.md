@@ -36,6 +36,7 @@ Carpeta que contiene todos los archivos relacionados con la creación de los mod
 	`pip install pyinstaller`
 	- Ubícate en el directorio del script y ejecuta:
 	`pyinstaller --onefile obtener_forecast_servidor.py`
+
 	El ejecutable estará en la carpeta dist.
 
 - [prediccion_de_potencias_con_regresión.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/prediccion_de_potencias_con_regresi%C3%B3n.ipynb "prediccion_de_potencias_con_regresión.ipynb"): notebook con 2 modelos de regresión para predecir los datos de la potencia general del parque. Los modelos de regresión están hechos con tensorflow y son una regresión polinomial, un random forest y un random forest con la librería ydf. 
