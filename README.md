@@ -19,6 +19,8 @@ Carpeta que contiene todos los archivos relacionados con la creación de los mod
 
 - [YDF_datos_variados.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/YDF_datos_variados.ipynb "YDF_datos_variados.ipynb"): Notebook con un modelo básico de random forest para comprobar si los nuevos datos generan buenos modelos. Utiliza un histograma para la detección de errores. Compara el error obtenido del modelo con el error producido asumiendo que el valor de la potencia del dato de test equivale al valor de la potencia del instante de tiempo anterior.
 
+- [comp_datos_modelos_santiago.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/comp_datos_modelos_santiago.ipynb "comp_datos_modelos_santiago.ipynb"): Notebook que toma las predicciones obtenidas por los modelos de la [página](https://open-meteo.com/en/docs "página") y los compara con datos obtenidos de una estación meteorológica en Santiago de Compostela. Las predicciones han sido tomadas diariamente y predicen hasta 16 días.
+
 - [comp_datos_modelos_santiago.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/comp_datos_modelos_santiago.ipynb "comp_datos_modelos_santiago.ipynb"): Notebook que toma datos de la estación meteorológica en Santiago de Compostla y compara los datos con el histórico de la página de modelos de series temporales para observar si los datos son precisos. También lo compara con las predicciones históricas de la página.
 
 - [comparacion_potencia_individual_y_general.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/comparacion_potencia_individual_y_general.ipynb "comparacion_potencia_individual_y_general.ipynb"): notebook que contiene los modelos de regresión lineal y random forest tanto para la predicción de potencia de todo el parque, como para las potencias individuales. Crea una gráfica para cada modelo que representa los datos reales y los predichos por cada versión del modelo (de las potencias individuales hace la suma). También calcula el r2_score, el error cuadrático medio *(mse)* y el error absoluto medio *(mae)* de ambos modelos y los compara.
@@ -29,7 +31,13 @@ Carpeta que contiene todos los archivos relacionados con la creación de los mod
 
 - [datos_variados.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/datos_variados.ipynb "datos_variados.ipynb"): notebook que filtra y representa gráficamente datos del simulador con variaciones de setpoint, direcciones, etc.
 
-- [obtener_forecast_servidor.py](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/obtener_forecast_servidor.py "obtener_forecast_servidor.py"): Programa que se ejecuta cada día para pedir al servidor de predicciones de modelos de datos meteorológicos las predicciones climáticas para los próximos 16 días. Para ejecutarlo diariamente se ha usado el programador de tareas de windows 11. 
+- [obtener_forecast_servidor.py](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/obtener_forecast_servidor.py "obtener_forecast_servidor.py"): Programa que se ejecuta cada día para pedir al servidor de predicciones de modelos de datos meteorológicos las predicciones climáticas para los próximos 16 días. Para ejecutarlo diariamente se ha usado el programador de tareas de windows 11.  Para convertirlo en aplicación (exe) para que pueda ejecutarse, deben seguirse estos pasos:
+	- Instalar PyInstaller si no se tiene instalado previamente:
+	`pip install pyinstaller`
+	- Ubícate en el directorio del script y ejecuta:
+	`pyinstaller --onefile obtener_forecast_servidor.py`
+
+	El ejecutable estará en la carpeta dist.
 
 - [prediccion_de_potencias_con_regresión.ipynb](https://github.com/Lucia1009/TFG-Plataforma-para-la-prediccion-de-potencia-electrica-generada-en-parques-eolicos/blob/main/modelos/prediccion_de_potencias_con_regresi%C3%B3n.ipynb "prediccion_de_potencias_con_regresión.ipynb"): notebook con 2 modelos de regresión para predecir los datos de la potencia general del parque. Los modelos de regresión están hechos con tensorflow y son una regresión polinomial, un random forest y un random forest con la librería ydf. 
 
