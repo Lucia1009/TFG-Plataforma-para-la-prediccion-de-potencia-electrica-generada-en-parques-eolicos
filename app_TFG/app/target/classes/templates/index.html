@@ -1,16 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8" /><title>Subir archivo</title></head>
 <body>
 <h1>Sube tu CSV</h1>
-<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" accept=".csv" required />
+<form th:action="@{/ir/upload}" method="get">
     <button type="submit">Subir</button>
 </form>
-
-<div th:if="${message}">
-    <p th:text="${message}"></p>
-</div>
 
 </body>
 </html>

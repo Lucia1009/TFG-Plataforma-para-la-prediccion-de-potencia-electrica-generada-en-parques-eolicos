@@ -1,5 +1,6 @@
 Flask
 flask-restful
+pandas
 requests
 urllib3
 six
