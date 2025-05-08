@@ -1,5 +1,0 @@
-Flask
-flask-restful
-requests
-urllib3
-six
