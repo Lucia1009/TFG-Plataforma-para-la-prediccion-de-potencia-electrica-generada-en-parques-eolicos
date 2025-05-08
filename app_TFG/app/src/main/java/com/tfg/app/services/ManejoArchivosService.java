@@ -1,5 +1,6 @@
 package com.tfg.app.services;
 
+import com.tfg.app.config.Configuration_Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
@@ -14,10 +15,18 @@ import java.io.File;
 
 @Service
 public class ManejoArchivosService {
-    private final String url = "http://localhost:5000/";
+    private final String url;
+
 
     @Autowired
     private RestTemplate restTemplate;
+
+    private final Configuration_Properties config;
+
+    public ManejoArchivosService(Configuration_Properties config) {
+        this.config = config;
+        url="http://pythonapi:5000/";
+    }
 
 
     public String uploadFile(File file) {
@@ -33,7 +42,7 @@ public class ManejoArchivosService {
                 new HttpEntity<>(body, headers);
 
         // 3. Llamada POST al endpoint fijo /upload
-        return restTemplate.postForObject(url+"upload", requestEntity, String.class);
+        return restTemplate.postForObject(url+"upload_f", requestEntity, String.class);
     }
 
 }

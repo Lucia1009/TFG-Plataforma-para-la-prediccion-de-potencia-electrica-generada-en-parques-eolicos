@@ -32,12 +32,6 @@ public class ManejoArchivosController {
         this.manejoArchivosService = manejoArchivosService;
     }
 
-    @GetMapping("/")
-    public String index(ModelMap model) {
-        model.addAttribute("file", new String());
-        return "index";
-    }
-
     @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                    Model model) {
@@ -62,6 +56,18 @@ public class ManejoArchivosController {
             model.addAttribute("message", "Error: " + e.getMessage());
         }
 
-        return "index";
+        return "upload_file";
     }
+
+    @GetMapping("upload_file")
+    public String irUpload(ModelMap model) {
+        model.addAttribute("file", "");
+        return "upload_file";
+    }
+
+    @GetMapping("/upload")
+    public String mostrarFormularioUpload(Model model) {
+        return "upload_file";
+    }
+
 }
