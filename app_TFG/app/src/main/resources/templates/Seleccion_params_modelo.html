@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Seleccione los parámetros del modelo</title>
+    <meta charset="UTF-8"/>
+    <title>Selector de Modelos ML</title>
+    <link rel="stylesheet" th:href="@{/css/seleccion_parametros.css}" />
 </head>
 <body>
-    <h1>Seleccione los parámetros del modelo</h1>
+<h1>Configurador de Modelos</h1>
+
+<label for="modelSelect">Selecciona un tipo de modelo:</label>
+<select id="modelSelect" name="modelType">
+    <option value="">-- Elige un modelo --</option>
+    <option value="rf">Random Forest</option>
+    <option value="pr">Regresión Polinomial</option>
+    <option value="ts">Series Temporales</option>
+</select>
+
+<form id="modelForm" th:action="@{/model/train}" method="post">
+    <input type="hidden" id="modelTypeHidden" name="modelType"/>
+
+    <div id="model-form-rf" class="model-form"
+         th:insert="seleccion_params/Random_forest :: rfForm"></div>
+
+    <div id="model-form-pr" class="model-form"
+         th:insert="seleccion_params/Regresion_polinomial :: prForm"></div>
+
+    <div id="model-form-ts" class="model-form"
+         th:insert="seleccion_params/Series_temporales :: tsForm"></div>
+
+
+    <button type="submit">Enviar parámetros</button>
+</form>
+
+<script th:src="@{/js/parametros_modelo.js}"></script>
+<script th:src="@{/js/RF_sparse_oblique.js}"></script>
+<script th:src="@{/js/PR_capas.js}"></script>
+<script th:src="@{/js/ST.js}"></script>
 </body>
 </html>

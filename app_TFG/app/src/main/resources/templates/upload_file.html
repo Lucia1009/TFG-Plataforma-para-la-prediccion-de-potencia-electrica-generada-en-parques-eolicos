@@ -18,9 +18,18 @@
     <option value=""> Seleccione la clase objetivo</option>
     <option th:each="col : ${columnas}" th:value="${col}" th:text="${col}"></option>
   </select>
-  <button type="submit">Seleccionar</button>
+  <button type="submit" id="selectButton" disabled>Seleccionar</button>
 </form>
+<script>
+  // Obtener referencias al <select> y al botón
+  const targetSelect = document.getElementById('target');
+  const selectButton = document.getElementById('selectButton');
 
+  // Cada vez que cambie la selección, habilita o deshabilita el botón
+  targetSelect.addEventListener('change', () => {
+    selectButton.disabled = (targetSelect.value === '');
+  });
+</script>
 
 
 </body>

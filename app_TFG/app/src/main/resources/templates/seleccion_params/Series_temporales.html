@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="tsForm">
+  <h2>Series Temporales</h2>
+  <label for="ts-window-size">lookBack:</label>
+  <input type="number" id="ts-window-size" name="lookBack" />
+
+  <label for="ts-lstm-units">lstmUnits:</label>
+  <input type="number" id="ts-lstm-units" name="lstmUnits" />
+
+  <label for="ts-epochs">epochs:</label>
+  <input type="number" id="ts-epochs" name="epochs" />
+
+  <label for="ts-batch-size">batchSize:</label>
+  <input type="number" id="ts-batch-size" name="batchSize" />
+</div>
+</html>

@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 2em;
+}
+
+h1 {
+    margin-bottom: 1em;
+}
+
+label {
+    font-weight: bold;
+}
+
+select {
+    padding: 0.4em;
+    margin-bottom: 1em;
+}
+
+.model-form {
+    display: none;
+    margin-top: 1em;
+}
+
+.model-form label {
+    display: block;
+    margin: 0.5em 0 0.2em;
+}
+
+.model-form input {
+    width: 100%;
+    padding: 0.4em;
+    box-sizing: border-box;
+}
+
+.model-form button {
+    margin-top: 1em;
+    padding: 0.6em 1.2em;
+    cursor: pointer;
+}
+#sparseNormContainer {
+    margin-top: 0.5em;
+}
+
+/* Panel estilo WordPress Custom Fields */
+.custom-fields {
+    border: 1px solid #ddd;
+    background: #fdfdfd;
+    padding: 1em;
+    margin: 1.5em 0;
+}
+
+.custom-fields legend {
+    font-weight: bold;
+    padding: 0 0.5em;
+}
+
+.layer-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5em;
+}
+
+.layer-table th,
+.layer-table td {
+    border: 1px solid #ddd;
+    padding: 0.5em;
+    vertical-align: middle;
+}
+
+.layer-table th {
+    background: #f1f1f1;
+    font-weight: bold;
+}
+
+.layer-table tfoot td {
+    border: none;
+    text-align: left;
+    padding-top: 1em;
+}
+
+/* Botones */
+.button {
+    background: #0073aa;
+    color: #fff;
+    border: none;
+    padding: 0.4em 0.8em;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #005177;
+}
+
+.button-link {
+    background: none;
+    color: #0073aa;
+    padding: 0;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.button-link:hover {
+    color: #005177;
+}
+
+
+
