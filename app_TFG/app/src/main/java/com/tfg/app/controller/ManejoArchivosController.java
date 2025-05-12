@@ -1,5 +1,6 @@
 package com.tfg.app.controller;
 
+import com.tfg.app.dto.RespuestaUploadDto;
 import com.tfg.app.services.ManejoArchivosService;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ import java.nio.file.Path;
 public class ManejoArchivosController {
 
     ManejoArchivosService manejoArchivosService;
+    RespuestaUploadDto respuestaUploadDto;
 
     public ManejoArchivosController(ManejoArchivosService manejoArchivosService) {
         this.manejoArchivosService = manejoArchivosService;
@@ -46,10 +48,12 @@ public class ManejoArchivosController {
             Files.copy(file.getInputStream(), tempFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
             // Procesar con el service
-            manejoArchivosService.uploadFile(tempFile.toFile());
+            RespuestaUploadDto respuesta = manejoArchivosService.uploadFile(tempFile.toFile());
 
             // Informar de la carga completa
             model.addAttribute("message", "Procesado con éxito.");
+            model.addAttribute("columnas", respuesta.getColumns());
+            setRespuestaUploadDto(respuesta);
 
             tempFile.toFile().deleteOnExit();
         } catch (Exception e) {
@@ -67,7 +71,16 @@ public class ManejoArchivosController {
 
     @GetMapping("/upload")
     public String mostrarFormularioUpload(Model model) {
+        model.addAttribute("columnas", respuestaUploadDto.getColumns());
         return "upload_file";
     }
+
+    @PostMapping("/setTarget")
+    public String seleccionModelo(ModelMap model, @RequestParam("target") String target) {
+        System.out.println(target);
+        manejoArchivosService.setTarget(target);
+        return "Seleccion_params_modelo";
+    }
+
 
 }

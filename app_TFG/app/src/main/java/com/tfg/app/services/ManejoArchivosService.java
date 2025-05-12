@@ -1,6 +1,7 @@
 package com.tfg.app.services;
 
 import com.tfg.app.config.Configuration_Properties;
+import com.tfg.app.dto.RespuestaUploadDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
@@ -29,7 +30,7 @@ public class ManejoArchivosService {
     }
 
 
-    public String uploadFile(File file) {
+    public RespuestaUploadDto uploadFile(File file) {
         // 1. Cabeceras para multipart/form-data
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -38,11 +39,23 @@ public class ManejoArchivosService {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("file", new FileSystemResource(file));
 
-        HttpEntity<MultiValueMap<String, Object>> requestEntity =
-                new HttpEntity<>(body, headers);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
         // 3. Llamada POST al endpoint fijo /upload
-        return restTemplate.postForObject(url+"upload_f", requestEntity, String.class);
+        return restTemplate.postForObject(url+"upload_f", requestEntity, RespuestaUploadDto.class);
+    }
+
+    public String setTarget(String target) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
+        form.add("target", target);
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(form, headers);
+
+        return restTemplate.postForObject(url + "set_target", request, String.class);
     }
 
 }
