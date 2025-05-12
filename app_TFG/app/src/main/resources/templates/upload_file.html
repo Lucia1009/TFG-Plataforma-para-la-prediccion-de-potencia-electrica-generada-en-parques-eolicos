@@ -12,5 +12,16 @@
   <p th:text="${message}"></p>
 </div>
 
+<form th:action="@{/setTarget}" method="post">
+  <label for="target" th:text="Target"></label>
+  <select class="target_selector" name="target" id="target">
+    <option value=""> Seleccione la clase objetivo</option>
+    <option th:each="col : ${columnas}" th:value="${col}" th:text="${col}"></option>
+  </select>
+  <button type="submit">Seleccionar</button>
+</form>
+
+
+
 </body>
 </html>
