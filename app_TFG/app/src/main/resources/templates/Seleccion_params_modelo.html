@@ -9,6 +9,24 @@
 <h1>Selección de parámetros para los Modelos</h1>
 
 
+<!-- SELECTOR DE TARGET  -->
+<!--<form th:action="@{/setTarget}" method="post">-->
+<!--    <label for="target">Target</label>-->
+<!--    <select class="target_selector" name="target" id="target">-->
+<!--        &lt;!&ndash; Opción por defecto &ndash;&gt;-->
+<!--        <option value=""-->
+<!--                th:selected="${target == null or target == ''}">-->
+<!--            &#45;&#45; Seleccione la clase objetivo &#45;&#45;-->
+<!--        </option>-->
+<!--        &lt;!&ndash; Opciones dinámicas &ndash;&gt;-->
+<!--        <option th:each="col : ${columnas}"-->
+<!--                th:value="${col}"-->
+<!--                th:text="${col}"-->
+<!--                th:selected="${col == target}">-->
+<!--        </option>-->
+<!--    </select>-->
+<!--&lt;!&ndash;    <button type="submit" id="selectButton" disabled>Seleccionar</button>&ndash;&gt;-->
+<!--</form>-->
 
 <!-- NAV DE PESTAÑAS -->
 <nav class="tabs">
@@ -20,6 +38,14 @@
 </nav>
 
 <form id="modelForm" th:action="@{/model/train}" method="post">
+    <div>
+        <label for="target" th:text="Target"></label>
+        <select class="target_selector" name="target" id="target">
+            <option value=""> Seleccione la clase objetivo</option>
+            <option th:each="col : ${columnas}" th:value="${col}" th:text="${col}"></option>
+        </select>
+    </div>
+
     <input type="hidden" id="modelTypeHidden" name="modelType" value="rf"/>
 
     <div id="model-form-rf" class="model-form"
