@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="rfForm">
+  <h2>Random Forest</h2>
+  <label for="rf-num-trees">num_trees:</label>
+  <input type="number" id="rf-num-trees" name="num_trees" value="301" />
+
+  <label for="rf-max-depth">max_depth:</label>
+  <input type="number" id="rf-max-depth" name="max_depth" value="10" />
+
+  <label for="rf-split-axis">split_axis:</label>
+  <select id="rf-split-axis" name="split_axis">
+    <option value="AXIS_ALIGNED">AXIS_ALIGNED</option>
+    <option value="SPARSE_OBLIQUE" selected>SPARSE_OBLIQUE</option>
+    <option value="MHLD_OBLIQUE">MHLD_OBLIQUE</option>
+  </select>
+
+  <label for="rf-categorical-algo">categorical_algorithm:</label>
+  <select id="rf-categorical-algo" name="categorical_algorithm">
+    <option value="CART">CART</option>
+    <option value="ONE_HOT">ONE_HOT</option>
+    <option value="RANDOM" selected>RANDOM</option>
+  </select>
+
+  <label for="rf-missing-policy">missing_value_policy:</label>
+  <select id="rf-missing-policy" name="missing_value_policy">
+    <option value="GLOBAL_IMPUTATION">GLOBAL_IMPUTATION</option>
+    <option value="LOCAL_IMPUTATION">LOCAL_IMPUTATION</option>
+    <option value="RANDOM_LOCAL_IMPUTATION" selected>RANDOM_LOCAL_IMPUTATION</option>
+  </select>
+
+  <div id="sparseNormContainer">
+    <label for="rf-sparse-norm">sparse_oblique_normalization:</label>
+    <select id="rf-sparse-norm" name="sparse_oblique_normalization">
+      <option value="NONE">NONE</option>
+      <option value="STANDARD_DEVIATION" selected>STANDARD_DEVIATION</option>
+      <option value="MIN_MAX">MIN_MAX</option>
+    </select>
+  </div>
+
+  <label for="rf-compute-oob">
+    <input type="checkbox" id="rf-compute-oob"
+           name="compute_oob_variable_importances" value="true" checked/>
+    compute_oob_variable_importances
+  </label>
+
+  <label for="rf-winner-all">
+    <input type="checkbox" id="rf-winner-all"
+           name="winner_take_all" value="true"/>
+    winner_take_all
+  </label>
+</div>
+</html>

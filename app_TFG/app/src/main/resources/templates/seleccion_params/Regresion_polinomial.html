@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="prForm">
+  <h2>Regresión Polinomial</h2>
+  <label for="pr-degree">degree:</label>
+  <input type="number" id="pr-degree" name="degree" value="15" />
+
+  <label for="pr-optimizer">optimizer:</label>
+  <select id="pr-optimizer" name="optimizer">
+    <option value="SGD">SGD</option>
+    <option value="RMSprop">RMSprop</option>
+    <option value="ADAM" selected>ADAM</option>
+  </select>
+
+  <label for="pr-loss">loss:</label>
+  <select id="pr-loss" name="loss">
+    <option value="MeanSquaredError" selected>MeanSquaredError</option>
+    <option value="KLDivergence">KLDivergence</option>
+    <option value="CosineSimilarity">CosineSimilarity</option>
+  </select>
+
+  <label for="pr-metrics">metrics:</label>
+  <select id="pr-metrics" name="pr_metrics" multiple>
+    <option value="MeanSquaredError" selected>MeanSquaredError</option>
+    <option value="RootMeanSquaredError">RootMeanSquaredError</option>
+    <option value="MeanAbsoluteError" selected>MeanAbsoluteError</option>
+    <option value="MeanAbsolutePercentageError">MeanAbsolutePercentageError</option>
+    <option value="MeanSquaredLogarithmicError">MeanSquaredLogarithmicError</option>
+    <option value="CosineSimilarity">CosineSimilarity</option>
+    <option value="LogCoshError">LogCoshError</option>
+    <option value="R2Score" selected>R2Score</option>
+  </select>
+
+  <label for="pr-epochs">epochs:</label>
+  <input type="number" id="pr-epochs" name="epochs" />
+
+  <!-- capas -->
+  <fieldset class="custom-fields">
+    <legend>Añadir Capas</legend>
+    <table class="layer-table">
+      <thead>
+      <tr>
+        <th>Nombre de la capa</th>
+        <th>Unidades</th>
+        <th>Activación</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody id="pr-layers-container">
+      <!-- filas generadas dinámicamente -->
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="4">
+          <button type="button" id="pr-add-layer-btn" class="button">+ Añadir capa</button>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </fieldset>
+
+  <!-- template oculto -->
+  <template id="pr-layer-template">
+    <tr class="pr-layer-form">
+      <td><input type="text" name="pr_layerName" placeholder="p.ej. Dense" /></td>
+      <td><input type="number" name="pr_units" placeholder="Unidades" /></td>
+      <td>
+        <select name="pr_activation">
+          <option value="relu">relu</option>
+          <option value="tanh">tanh</option>
+          <option value="sigmoid">sigmoid</option>
+        </select>
+      </td>
+      <td>
+        <button type="button" class="pr-remove-layer-btn button-link">Eliminar</button>
+      </td>
+    </tr>
+  </template>
+
+</div>
+</html>
