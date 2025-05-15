@@ -1,8 +1,18 @@
 package com.tfg.app.controller;
 
+import com.tfg.app.dto.ColumnasDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,14 +21,46 @@ import java.util.Map;
 @Controller
 public class ParamsModeloController {
 
+    @Value("${api.python.url}")
+    private String url;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    ColumnasDto columnasDto;
+
     @GetMapping("/Seleccion_params_modelo")
     public String showSelectionForm(Model model) {
+        columnasDto = restTemplate.getForObject(url+"get_columns", ColumnasDto.class);
+        try {
+            model.addAttribute("columnas", columnasDto.getColumns());
+        }catch (NullPointerException n){
+            model.addAttribute("columnas", Collections.emptyList());
+            System.out.println(n.getMessage());
+        }
         return "Seleccion_params_modelo";
     }
 
+    /*@PostMapping("/setTarget")
+    public String seleccionModelo(Model model, @RequestParam("target") String target) {
+
+        setTarget(target);
+
+        model.addAttribute("target", target);
+
+        return "Seleccion_params_modelo";
+    }*/
+
+
+
+
     @PostMapping("/model/train")
     public String trainModel(
+            Model model,
             @RequestParam("modelType") String modelType,
+
+            /* ---------- Target ---------------- */
+            @RequestParam("target") String target,
 
             /* ---------- Random Forest ---------------- */
             //booleanos
@@ -43,10 +85,13 @@ public class ParamsModeloController {
             @RequestParam(value="st_units",     required=false) List<String> st_units,
             @RequestParam(value="st_activation",required=false) List<String> st_activations,
 
+            /* ---------- Resto params normales ---------------- */
             // todos los demás params genéricos
-            @RequestParam Map<String, String> allParams,
-            Model model
+            @RequestParam Map<String, String> allParams
     ) {
+
+        this.setTarget(target);
+
         Map<String, List<String>> expectedParams = Map.of(
                 "rf", List.of("num_trees","max_depth","split_axis",
                         "categorical_algorithm","missing_value_policy","sparse_oblique_normalization"),
@@ -78,10 +123,19 @@ public class ParamsModeloController {
             printLayers(st_layerNames, st_units, st_activations);
         }
 
-        model.addAttribute("message",
-                "Parámetros de " + modelType + " recibidos y mostrados en consola."
-        );
-        return "Seleccion_params_modelo";
+        return "redirect:/Seleccion_params_modelo";
+    }
+    public String setTarget(String target) {
+
+        org.springframework.http.HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
+        form.add("target", target);
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(form, headers);
+
+        return restTemplate.postForObject(url + "set_target", request, String.class);
     }
 
     private void Metrics(List<String> metrics) {

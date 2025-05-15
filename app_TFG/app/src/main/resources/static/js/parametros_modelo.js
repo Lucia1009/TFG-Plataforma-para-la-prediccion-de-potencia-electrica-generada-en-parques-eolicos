@@ -1,4 +1,16 @@
-// static/js/main.js
+/* para obligar a seleccionar campo del TARGET*/
+
+// Obtener referencias al <select> y al botón
+const targetSelect = document.getElementById('target');
+const selectButton = document.getElementById('selectButton');
+
+// Cada vez que cambie la selección, habilita o deshabilita el botón
+targetSelect.addEventListener('change', () => {
+    selectButton.disabled = (targetSelect.value === '');
+});
+
+
+/* SELECCIÓN DE MODELOS */
 document.addEventListener('DOMContentLoaded', () => {
     const tabs   = document.querySelectorAll('.tabs li');
     const forms  = document.querySelectorAll('.model-form');

@@ -1,33 +1,47 @@
+<!-- src/main/resources/templates/upload_file.html -->
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8" /><title>Subir archivo</title></head>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Subir archivo</title>
+  <link rel="stylesheet" th:href="@{/css/upload.css}"/>
+</head>
 <body>
 <h1>Sube tu CSV</h1>
+
 <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
-  <input type="file" name="file" accept=".csv" required />
+  <input type="file" name="file" accept=".csv" required/>
   <button type="submit">Subir</button>
 </form>
 
-<div th:if="${message}">
-  <p th:text="${message}"></p>
+<!-- Modal: sólo si viene 'message' en el model (flash attribute) -->
+<div id="modalOverlay" th:if="${message}">
+  <div id="modalBox">
+    <p th:text="${message}">Mensaje aquí</p>
+
+    <!-- Si success=true redirige a la selección de parámetros -->
+    <div th:if="${success}">
+      <form th:action="@{/Seleccion_params_modelo}" method="get">
+        <button type="submit">Aceptar</button>
+      </form>
+    </div>
+
+    <!-- Si success=false vuelve al upload -->
+    <div th:if="${!success}">
+      <form th:action="@{/upload}" method="get">
+        <button type="submit">Aceptar</button>
+      </form>
+    </div>
+  </div>
 </div>
 
-<form th:action="@{/setTarget}" method="post">
-  <label for="target" th:text="Target"></label>
-  <select class="target_selector" name="target" id="target">
-    <option value=""> Seleccione la clase objetivo</option>
-    <option th:each="col : ${columnas}" th:value="${col}" th:text="${col}"></option>
-  </select>
-  <button type="submit" id="selectButton" disabled>Seleccionar</button>
-</form>
-<script>
-  // Obtener referencias al <select> y al botón
-  const targetSelect = document.getElementById('target');
-  const selectButton = document.getElementById('selectButton');
-
-  // Cada vez que cambie la selección, habilita o deshabilita el botón
-  targetSelect.addEventListener('change', () => {
-    selectButton.disabled = (targetSelect.value === '');
+<!-- Script para forzar que el overlay pase de display:none a flex -->
+<script th:if="${message}">
+  document.addEventListener('DOMContentLoaded', function() {
+    const overlay = document.getElementById('modalOverlay');
+    if (overlay) {
+      overlay.style.display = 'flex';
+    }
   });
 </script>
 

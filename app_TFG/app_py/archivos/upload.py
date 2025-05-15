@@ -24,7 +24,9 @@ datos_params_modelo = DatosParamsModelo()
 
 # Define un blueprint llamado 'upload'
 upload_bp = Blueprint('upload', __name__)
-set_target_bp=Blueprint('target', __name__)
+set_target_bp = Blueprint('target', __name__)
+get_columns_bp = Blueprint('get_columns', __name__)
+
 @upload_bp.route('/upload_f', methods=['POST'])
 def process_file():
     print("Entrando en process_file", flush=True)
@@ -39,9 +41,16 @@ def process_file():
     except Exception as e:
         return jsonify({'error': str(e), 'columns':['']}), 500
 
-    return jsonify({'mensaje': 'El archivo ha sido leido correctamente', 'columns': list(df.columns)}), 200
+    return jsonify({'mensaje': 'El archivo ha sido leido correctamente'}), 200
 
+@get_columns_bp.route('/get_columns', methods=['GET'])
+def get_columns():
+    if datos_params_modelo.df is None:
+        return jsonify({'error': 'No se ha subido ningún fichero', 'columns': ['']}), 400
 
+    columns = list(datos_params_modelo.df.columns)
+    print("Las columnas son", columns, flush=True)
+    return jsonify({'mensaje': 'Las columnas han sido recogidas correctamente', 'columns': columns}), 200
 
 @set_target_bp.route('/set_target', methods=['POST'])
 def setTarget():
