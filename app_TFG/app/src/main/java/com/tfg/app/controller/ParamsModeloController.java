@@ -1,6 +1,7 @@
 package com.tfg.app.controller;
 
 import com.tfg.app.dto.ColumnasDto;
+import com.tfg.app.dto.params.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -8,15 +9,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class ParamsModeloController {
@@ -63,105 +59,105 @@ public class ParamsModeloController {
             @RequestParam("target") String target,
 
             /* ---------- Random Forest ---------------- */
-            //booleanos
             @RequestParam(value="compute_oob_variable_importances", defaultValue="false")
             boolean computeOob,
             @RequestParam(value="winner_take_all", defaultValue="false")
             boolean winnerTakeAll,
 
             /* ---------- Regresión polinomial ---------------- */
-            // lista de métricas (puede venir null)
-            @RequestParam(value="pr_metrics", required=false) List<String> pr_metrics,
-
-            // parámetros de capas para PR (pueden venir null o vacíos)
-            @RequestParam(value="pr_layerName", required=false) List<String> pr_layerNames,
-            @RequestParam(value="pr_units",     required=false) List<String> pr_units,
-            @RequestParam(value="pr_activation",required=false) List<String> pr_activations,
+            @RequestParam(value="pr_metrics", required=false)       List<String> prMetrics,
+            @RequestParam(value="pr_layerName", required=false)     List<String> prLayerNames,
+            @RequestParam(value="pr_units", required=false)         List<String> prUnits,
+            @RequestParam(value="pr_activation", required=false)    List<String> prActivations,
 
             /* ---------- Series Temporales ---------------- */
-            // parámetros de capas para ST
-            @RequestParam(value="st_metrics", required=false) List<String> st_metrics,
-            @RequestParam(value="st_layerName", required=false) List<String> st_layerNames,
-            @RequestParam(value="st_units",     required=false) List<String> st_units,
-            @RequestParam(value="st_activation",required=false) List<String> st_activations,
+            @RequestParam(value="st_metrics", required=false)       List<String> stMetrics,
+            @RequestParam(value="st_layerName", required=false)     List<String> stLayerNames,
+            @RequestParam(value="st_units", required=false)         List<String> stUnits,
+            @RequestParam(value="st_activation", required=false)    List<String> stActivations,
 
             /* ---------- Resto params normales ---------------- */
-            // todos los demás params genéricos
             @RequestParam Map<String, String> allParams
     ) {
 
-        this.setTarget(target);
 
-        Map<String, List<String>> expectedParams = Map.of(
-                "rf", List.of("num_trees","max_depth","split_axis",
-                        "categorical_algorithm","missing_value_policy","sparse_oblique_normalization"),
-                "pr", List.of("degree","optimizer","loss","epochs"),
-                "st", List.of("datosPasados", "unidades_tiempo_pasadas", "datosFuturos",
-                        "unidades_tiempo_futuras","epochs","batchSize", "optimizer",
-                        "loss")
-        );
-
-        System.out.println("=== Parámetros de " + modelType + " ===");
-        // 1) Imprimo los parámetros “simples” definidos en expectedParams
-        expectedParams.getOrDefault(modelType, Collections.emptyList())
-                .forEach(key ->
-                        System.out.printf("%s = %s%n", key, allParams.get(key))
-                );
-
-        // 2) Booleanos RF
-        if ("rf".equals(modelType)) {
-            RfBooleans(computeOob, winnerTakeAll);
+        // 1) Construimos el DTO concreto
+        ParamsDto dto;
+        switch (modelType) {
+            case "rf" -> {
+                RFParamsDto rf = new RFParamsDto();
+                rf.setModelType("rf");
+                rf.setTarget(target);
+                rf.setComputeOobVariableImportances(computeOob);
+                rf.setWinnerTakeAll(winnerTakeAll);
+                rf.setNumTrees(parseInt(allParams.get("num_trees")));
+                rf.setMaxDepth(parseInt(allParams.get("max_depth")));
+                rf.setSplit_axis(allParams.get("split_axis"));
+                rf.setCategorical_algorithm(allParams.get("categorical_algorithm"));
+                rf.setMissing_value_policy(allParams.get("missing_value_policy"));
+                rf.setSparse_oblique_normalization(allParams.get("sparse_oblique_normalization"));
+                dto = rf;
+            }
+            case "pr" -> {
+                PRParamsDto pr = new PRParamsDto();
+                pr.setModelType("pr");
+                pr.setTarget(target);
+                pr.setDegree(parseInt(allParams.get("degree")));
+                pr.setOptimizer(allParams.get("optimizer"));
+                pr.setLoss(allParams.get("loss"));
+                pr.setEpochs(parseInt(allParams.get("epochs")));
+                pr.setMetrics(prMetrics != null ? prMetrics : Collections.emptyList());
+                pr.setLayers(buildLayers(prLayerNames, prUnits, prActivations));
+                dto = pr;
+            }
+            case "st" -> {
+                STParamsDto st = new STParamsDto();
+                st.setModelType("st");
+                st.setTarget(target);
+                st.setDatosPasados(parseInt(allParams.get("datosPasados")));
+                st.setUnidades_tiempo_pasadas(allParams.get("unidades_tiempo_pasadas"));
+                st.setDatosFuturos(parseInt(allParams.get("datosFuturos")));
+                st.setUnidades_tiempo_futuras(allParams.get("unidades_tiempo_futuras"));
+                st.setEpochs(parseInt(allParams.get("epochs")));
+                st.setBatchSize(parseInt(allParams.get("batchSize")));
+                st.setOptimizer(allParams.get("optimizer"));
+                st.setLoss(allParams.get("loss"));
+                st.setMetrics(stMetrics != null ? stMetrics : Collections.emptyList());
+                st.setLayers(buildLayers(stLayerNames, stUnits, stActivations));
+                dto = st;
+            }
+            default -> throw new IllegalArgumentException("Unknown modelType: " + modelType);
         }
 
-        // 3) Métricas y Capas PR / ST
-        if ("pr".equals(modelType)) {
-            Metrics(pr_metrics);
-            printLayers(pr_layerNames, pr_units, pr_activations);
-        }
-        if ("st".equals(modelType)) {
-            Metrics(st_metrics);
-            printLayers(st_layerNames, st_units, st_activations);
-        }
+        // 2) Enviamos el DTO como JSON a /train_model
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<ParamsDto> request = new HttpEntity<>(dto, headers);
+        restTemplate.postForObject(url + "train_model", request, String.class);
 
-        return "redirect:/Seleccion_params_modelo";
-    }
-    public String setTarget(String target) {
-
-        org.springframework.http.HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
-        form.add("target", target);
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(form, headers);
-
-        return restTemplate.postForObject(url + "set_target", request, String.class);
-    }
-
-    private void Metrics(List<String> metrics) {
-        if (metrics != null && !metrics.isEmpty()) {
-            System.out.println("metrics = " + String.join(", ", metrics));
-        } else {
-            System.out.println("metrics = []");
-        }
-    }
-
-    private void RfBooleans(boolean computeOob, boolean winnerTakeAll) {
-        System.out.printf("compute_oob_variable_importances = %s%n", computeOob);
-        System.out.printf("winner_take_all                 = %s%n", winnerTakeAll);
+        // 3) Redirigimos de nuevo al formulario
+        return "train_complete";
     }
 
-    private void printLayers(List<String> names, List<String> units, List<String> activations) {
-        if (names == null || names.isEmpty()) {
-            System.out.println("Capas = []");
-            return;
-        }
-        System.out.println("=== Capas ===");
+    private int parseInt(String s) {
+        try { return Integer.parseInt(s); }
+        catch (Exception e) { return 0; }
+    }
+
+    private List<CapaDto> buildLayers(List<String> names, List<String> units, List<String> activations) {
+        if (names == null) return Collections.emptyList();
+        List<CapaDto> capas = new ArrayList<>();
         for (int i = 0; i < names.size(); i++) {
-            String n = names.get(i);
-            String u = (units != null && units.size() > i) ? units.get(i) : "n/a";
-            String a = (activations != null && activations.size() > i) ? activations.get(i) : "n/a";
-            System.out.printf("Capa %d: nombre=%s, unidades=%s, activación=%s%n", i+1, n, u, a);
+            CapaDto c = new CapaDto();
+            c.setName(names.get(i));
+            c.setUnits(parseInt(units != null && units.size() > i ? units.get(i) : null));
+            c.setActivation(activations != null && activations.size() > i
+                    ? activations.get(i)
+                    : null);
+            capas.add(c);
         }
+        return capas;
     }
+
+
 }
