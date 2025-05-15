@@ -20,7 +20,7 @@
   </select>
 
   <label for="pr-metrics">metrics:</label>
-  <select id="pr-metrics" name="metrics" multiple>
+  <select id="pr-metrics" name="pr_metrics" multiple>
     <option value="MeanSquaredError" selected>MeanSquaredError</option>
     <option value="RootMeanSquaredError">RootMeanSquaredError</option>
     <option value="MeanAbsoluteError" selected>MeanAbsoluteError</option>
@@ -29,15 +29,14 @@
     <option value="CosineSimilarity">CosineSimilarity</option>
     <option value="LogCoshError">LogCoshError</option>
     <option value="R2Score" selected>R2Score</option>
-  </select>>
+  </select>
 
   <label for="pr-epochs">epochs:</label>
   <input type="number" id="pr-epochs" name="epochs" />
 
   <!-- capas -->
   <fieldset class="custom-fields">
-    <legend>Añadir Capas LSTM</legend>
-
+    <legend>Añadir Capas</legend>
     <table class="layer-table">
       <thead>
       <tr>
@@ -47,33 +46,33 @@
         <th>Acciones</th>
       </tr>
       </thead>
-      <tbody id="layers-container">
-      <!-- Aquí irán las filas generadas -->
+      <tbody id="pr-layers-container">
+      <!-- filas generadas dinámicamente -->
       </tbody>
       <tfoot>
       <tr>
         <td colspan="4">
-          <button type="button" id="add-layer-btn" class="button">+ Añadir capa</button>
+          <button type="button" id="pr-add-layer-btn" class="button">+ Añadir capa</button>
         </td>
       </tr>
       </tfoot>
     </table>
   </fieldset>
 
-  <!-- Template oculto -->
-  <template id="layer-template">
-    <tr class="layer-form">
-      <td><input type="text" name="layerName[]" placeholder="p.ej. Dense" /></td>
-      <td><input type="number" name="capaUnitsList[]" placeholder="Unidades" /></td>
+  <!-- template oculto -->
+  <template id="pr-layer-template">
+    <tr class="pr-layer-form">
+      <td><input type="text" name="pr_layerName" placeholder="p.ej. Dense" /></td>
+      <td><input type="number" name="pr_units" placeholder="Unidades" /></td>
       <td>
-        <select name="activationList[]">
+        <select name="pr_activation">
           <option value="relu">relu</option>
           <option value="tanh">tanh</option>
           <option value="sigmoid">sigmoid</option>
         </select>
       </td>
       <td>
-        <button type="button" class="remove-layer-btn button-link">Eliminar</button>
+        <button type="button" class="pr-remove-layer-btn button-link">Eliminar</button>
       </td>
     </tr>
   </template>

@@ -1,17 +1,98 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="tsForm">
+<div th:fragment="stForm">
   <h2>Series Temporales</h2>
-  <label for="ts-window-size">lookBack:</label>
-  <input type="number" id="ts-window-size" name="lookBack" />
 
-  <label for="ts-lstm-units">lstmUnits:</label>
-  <input type="number" id="ts-lstm-units" name="lstmUnits" />
+  <label for="st-datos-pasados">Número de unidades de tiempo pasadas que tomar como referencia:</label>
+  <input type="number" id="st-datos-pasados" name="datosPasados" />
+  <select id="st_unidades_tiempo_pasadas" name="unidades_tiempo_pasadas">
+    <option value="minutos" selected>minutos</option>
+    <option value="horas">horas</option>
+    <option value="días">días</option>
+  </select>
 
-  <label for="ts-epochs">epochs:</label>
-  <input type="number" id="ts-epochs" name="epochs" />
+  <label for="st-datos-futuros">Número de unidades de tiempo futuras que tomar como referencia:</label>
+  <input type="number" id="st-datos-futuros" name="datosFuturos" />
+  <select id="st_unidades_tiempo_futuras" name="unidades_tiempo_futuras">
+    <option value="minutos" selected>minutos</option>
+    <option value="horas">horas</option>
+    <option value="días">días</option>
+  </select>
 
-  <label for="ts-batch-size">batchSize:</label>
-  <input type="number" id="ts-batch-size" name="batchSize" />
+  <label for="st-epochs">epochs:</label>
+  <input type="number" id="st-epochs" name="epochs" />
+
+  <label for="st-batch-size">batchSize:</label>
+  <input type="number" id="st-batch-size" name="batchSize" />
+
+  <label for="st-optimizer">optimizer:</label>
+  <select id="st-optimizer" name="optimizer">
+    <option value="SGD">SGD</option>
+    <option value="RMSprop" selected>RMSprop</option>
+    <option value="ADAM">ADAM</option>
+  </select>
+
+  <label for="st-loss">loss:</label>
+  <select id="st-loss" name="loss">
+    <option value="MeanSquaredError" selected>MeanSquaredError</option>
+    <option value="KLDivergence">KLDivergence</option>
+    <option value="CosineSimilarity">CosineSimilarity</option>
+  </select>
+
+  <label for="st-metrics">metrics:</label>
+  <select id="st-metrics" name="st_metrics" multiple>
+    <option value="MeanSquaredError" selected>MeanSquaredError</option>
+    <option value="RootMeanSquaredError">RootMeanSquaredError</option>
+    <option value="MeanAbsoluteError" selected>MeanAbsoluteError</option>
+    <option value="MeanAbsolutePercentageError">MeanAbsolutePercentageError</option>
+    <option value="MeanSquaredLogarithmicError">MeanSquaredLogarithmicError</option>
+    <option value="CosineSimilarity">CosineSimilarity</option>
+    <option value="LogCoshError">LogCoshError</option>
+    <option value="R2Score" selected>R2Score</option>
+  </select>
+
+  <!-- capas -->
+  <fieldset class="custom-fields">
+    <legend>Añadir Capas</legend>
+    <table class="layer-table">
+      <thead>
+      <tr>
+        <th>Nombre de la capa</th>
+        <th>Unidades</th>
+        <th>Activación</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody id="st-layers-container">
+      <!-- filas generadas dinámicamente -->
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="4">
+          <button type="button" id="st-add-layer-btn" class="button">+ Añadir capa</button>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </fieldset>
+
+  <!-- template oculto -->
+  <template id="st-layer-template">
+    <tr class="st-layer-form">
+      <td><input type="text" name="st_layerName" placeholder="p.ej. LSTM" /></td>
+      <td><input type="number" name="st_units" placeholder="Unidades" /></td>
+      <td>
+        <select name="st_activation">
+          <option value="relu">relu</option>
+          <option value="tanh">tanh</option>
+          <option value="sigmoid">sigmoid</option>
+        </select>
+      </td>
+      <td>
+        <button type="button" class="st-remove-layer-btn button-link">Eliminar</button>
+      </td>
+    </tr>
+  </template>
 </div>
+
 </html>

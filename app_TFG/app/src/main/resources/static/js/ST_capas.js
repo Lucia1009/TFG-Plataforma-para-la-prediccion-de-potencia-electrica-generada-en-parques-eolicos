@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const addLayerBtn     = document.getElementById('pr-add-layer-btn');
-    const layersContainer = document.getElementById('pr-layers-container');
-    const layerTemplate   = document.getElementById('pr-layer-template').content;
+    const addLayerBtn     = document.getElementById('st-add-layer-btn');
+    const layersContainer = document.getElementById('st-layers-container');
+    const layerTemplate   = document.getElementById('st-layer-template').content;
 
     function updateLayerIndices() {
-        layersContainer.querySelectorAll('.pr-layer-form').forEach((row, idx) => {
+        layersContainer.querySelectorAll('.st-layer-form').forEach((row, idx) => {
             row.querySelector('input[name="layerName[]"]').placeholder = `Capa ${idx+1}`;
         });
     }
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2) Recuperamos la fila recién añadida
         const newRow = layersContainer.lastElementChild;
         // 3) Ligamos el listener de eliminar
-        newRow.querySelector('.pr-remove-layer-btn').addEventListener('click', () => {
+        newRow.querySelector('.st-remove-layer-btn').addEventListener('click', () => {
             newRow.remove();
             updateLayerIndices();
         });

@@ -11,15 +11,41 @@ label {
     font-weight: bold;
 }
 
-select {
-    padding: 0.4em;
-    margin-bottom: 1em;
+/* --- estilo de las pestañas --- */
+.tabs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1em;
+    display: flex;
+    border-bottom: 2px solid #ccc;
+}
+.tabs li {
+    padding: 0.5em 1em;
+    margin-right: 0.3em;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    user-select: none;
+}
+.tabs li.active {
+    background: #fff;
+    border-color: #ccc;
+    border-bottom-color: #fff;
+    font-weight: bold;
 }
 
+/* panel de contenido */
 .model-form {
     display: none;
-    margin-top: 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-top: none;
+    background: #fff;
 }
+
+/* deja intactas las demás reglas que ya tenías... */
+
 
 .model-form label {
     display: block;
@@ -104,6 +130,8 @@ select {
 .button-link:hover {
     color: #005177;
 }
+
+
 
 
 

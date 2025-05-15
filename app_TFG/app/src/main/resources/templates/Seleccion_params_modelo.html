@@ -6,18 +6,21 @@
     <link rel="stylesheet" th:href="@{/css/seleccion_parametros.css}" />
 </head>
 <body>
-<h1>Configurador de Modelos</h1>
+<h1>Selección de parámetros para los Modelos</h1>
 
-<label for="modelSelect">Selecciona un tipo de modelo:</label>
-<select id="modelSelect" name="modelType">
-    <option value="">-- Elige un modelo --</option>
-    <option value="rf">Random Forest</option>
-    <option value="pr">Regresión Polinomial</option>
-    <option value="ts">Series Temporales</option>
-</select>
+
+
+<!-- NAV DE PESTAÑAS -->
+<nav class="tabs">
+    <ul>
+        <li class="active" data-model="rf">Random Forest</li>
+        <li data-model="pr">Regresión Polinomial</li>
+        <li data-model="st">Series Temporales</li>
+    </ul>
+</nav>
 
 <form id="modelForm" th:action="@{/model/train}" method="post">
-    <input type="hidden" id="modelTypeHidden" name="modelType"/>
+    <input type="hidden" id="modelTypeHidden" name="modelType" value="rf"/>
 
     <div id="model-form-rf" class="model-form"
          th:insert="seleccion_params/Random_forest :: rfForm"></div>
@@ -25,16 +28,16 @@
     <div id="model-form-pr" class="model-form"
          th:insert="seleccion_params/Regresion_polinomial :: prForm"></div>
 
-    <div id="model-form-ts" class="model-form"
-         th:insert="seleccion_params/Series_temporales :: tsForm"></div>
-
+    <div id="model-form-st" class="model-form"
+         th:insert="seleccion_params/Series_temporales :: stForm"></div>
 
     <button type="submit">Enviar parámetros</button>
 </form>
 
+<!-- scripts de tu lógica + pestañas -->
 <script th:src="@{/js/parametros_modelo.js}"></script>
 <script th:src="@{/js/RF_sparse_oblique.js}"></script>
 <script th:src="@{/js/PR_capas.js}"></script>
-<script th:src="@{/js/ST.js}"></script>
+<script th:src="@{/js/ST_capas.js}"></script>
 </body>
 </html>

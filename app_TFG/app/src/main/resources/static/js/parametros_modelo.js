@@ -1,22 +1,25 @@
 // static/js/main.js
 document.addEventListener('DOMContentLoaded', () => {
-    const selector        = document.getElementById('modelSelect');
-    const modelTypeHidden = document.getElementById('modelTypeHidden');
-    const forms           = document.querySelectorAll('.model-form');
+    const tabs   = document.querySelectorAll('.tabs li');
+    const forms  = document.querySelectorAll('.model-form');
+    const hidden = document.getElementById('modelTypeHidden');
 
-    function showSelectedForm() {
-        // 1) ocultar todos
-        forms.forEach(f => f.style.display = 'none');
-        // 2) guardar el tipo en el hidden
-        modelTypeHidden.value = selector.value;
-        // 3) mostrar el elegido
-        if (selector.value) {
-            const div = document.getElementById(`model-form-${selector.value}`);
-            if (div) div.style.display = 'block';
-        }
+    function activate(model) {
+        // 1) marcar pestaña
+        tabs.forEach(t => t.classList.toggle('active', t.dataset.model === model));
+        // 2) ocultar/mostrar formularios
+        forms.forEach(f => {
+            f.style.display = (f.id === `model-form-${model}`) ? 'block' : 'none';
+        });
+        // 3) actualizar campo oculto
+        hidden.value = model;
     }
 
-    // init y listener
-    showSelectedForm();
-    selector.addEventListener('change', showSelectedForm);
+    // click en pestaña
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => activate(tab.dataset.model));
+    });
+
+    // init (usa el valor actual o la primera pestaña)
+    activate(hidden.value || tabs[0].dataset.model);
 });
