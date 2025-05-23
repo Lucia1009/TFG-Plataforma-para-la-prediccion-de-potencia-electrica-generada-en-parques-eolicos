@@ -58,6 +58,10 @@ public class ParamsModeloController {
             /* ---------- Target ---------------- */
             @RequestParam("target") String target,
 
+            /* ---------- Train_test_split ---------------- */
+            @RequestParam(value="estratificado", defaultValue="false")
+            boolean estratificado,
+
             /* ---------- Random Forest ---------------- */
             @RequestParam(value="compute_oob_variable_importances", defaultValue="false")
             boolean computeOob,
@@ -88,6 +92,7 @@ public class ParamsModeloController {
                 RFParamsDto rf = new RFParamsDto();
                 rf.setModelType("rf");
                 rf.setTarget(target);
+                rf.setEstratificado(estratificado);
                 rf.setComputeOobVariableImportances(computeOob);
                 rf.setWinnerTakeAll(winnerTakeAll);
                 rf.setNumTrees(parseInt(allParams.get("num_trees")));
@@ -102,6 +107,7 @@ public class ParamsModeloController {
                 PRParamsDto pr = new PRParamsDto();
                 pr.setModelType("pr");
                 pr.setTarget(target);
+                pr.setEstratificado(estratificado);
                 pr.setDegree(parseInt(allParams.get("degree")));
                 pr.setOptimizer(allParams.get("optimizer"));
                 pr.setLoss(allParams.get("loss"));

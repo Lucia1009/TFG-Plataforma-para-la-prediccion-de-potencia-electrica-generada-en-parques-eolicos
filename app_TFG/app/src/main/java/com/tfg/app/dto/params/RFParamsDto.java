@@ -14,4 +14,5 @@ public class RFParamsDto extends ParamsDto {
     private String sparse_oblique_normalization;
     private boolean computeOobVariableImportances;
     private boolean winnerTakeAll;
+    private boolean estratificado;
 }

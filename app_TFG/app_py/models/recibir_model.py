@@ -31,8 +31,8 @@ def train_model():
         return jsonify({'error': f'ModelType desconocido: {model_type}'}), 400
 
     modelo = mod()
-    modelo.setDfAttr(df)
-    modelo.setTargetAttr(target)
+    modelo.setDf(df)
+    modelo.setTarget(target)
 
     # 3) asigna SOLO los atributos que existan
     for key, val in data.items():
@@ -41,8 +41,14 @@ def train_model():
 
     # 4) entrena
     try:
-        modelo.train()
+        if modelo.estratificado:
+            modelo.train_test_estratificado()
+        else:
+            modelo.train_test_aleatorio()
+        modelo.train_model()
+        eval=modelo.evaluate()
+        
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': str(e), '\ntraza del error': e.__traceback__}), 500
 
-    return jsonify({'mensaje': f'Modelo {model_type} entrenado correctamente'}), 200
+    return jsonify({'mensaje': f'Modelo {model_type} entrenado correctamente', 'evaluacion': eval}), 200

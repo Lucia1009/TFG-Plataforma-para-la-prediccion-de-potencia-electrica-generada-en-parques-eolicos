@@ -2,6 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="rfForm">
   <h2>Random Forest</h2>
+  <label for="rf-estratificado">
+    <input type="checkbox" id="rf-estratificado"
+           name="estratificado" value="true"/>
+    estratificado
+  </label>
   <label for="rf-num-trees">num_trees:</label>
   <input type="number" id="rf-num-trees" name="num_trees" value="301" />
 

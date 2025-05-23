@@ -14,4 +14,5 @@ public class PRParamsDto extends ParamsDto {
     private int epochs;
     private List<String> metrics;
     private List<CapaDto> layers;
+    private boolean estratificado;
 }

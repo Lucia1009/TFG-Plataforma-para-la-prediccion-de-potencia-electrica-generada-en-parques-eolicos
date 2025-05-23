@@ -15,7 +15,7 @@ def process_file():
     f = request.files['file']
     global df
     try:
-        df = pd.read_csv(f)
+        df = pd.read_csv(f, delimiter=';', decimal=".", skiprows=[1])
         print("DataFrame subido:\n", df.head(), flush=True)
     except Exception as e:
         return jsonify({'error': str(e)}), 500

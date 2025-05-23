@@ -4,3 +4,8 @@ pandas
 requests
 urllib3
 six
+scikit-learn
+tensorflow
+keras
+ydf
+numpy
