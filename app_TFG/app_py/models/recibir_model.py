@@ -1,4 +1,5 @@
 # models/recibir_model.py
+import traceback
 from flask import Blueprint, jsonify, request
 from archivos.upload import data
 from models.RF import RF
@@ -37,6 +38,8 @@ def train_model():
             else:
                 setattr(modelo, key, val)
 
+
+
     # 4) entrena
     try:
         if modelo.estratificado:
@@ -47,6 +50,11 @@ def train_model():
         eval=modelo.evaluate()
         
     except Exception as e:
-        return jsonify({'error': str(e), '\ntraza del error': e.__traceback__}), 500
+        tb = traceback.format_exc()
+        # loggea tb si quieres: app.logger.error(tb)
+        return jsonify({
+            'error':   str(e),
+            'traceback': tb
+        }), 500
 
     return jsonify({'mensaje': f'Modelo {model_type} entrenado correctamente', 'evaluacion': eval}), 200

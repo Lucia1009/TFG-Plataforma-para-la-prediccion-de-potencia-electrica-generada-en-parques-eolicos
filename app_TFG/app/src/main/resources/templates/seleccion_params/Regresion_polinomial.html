@@ -27,7 +27,7 @@
   </select>
 
   <label for="pr-epochs">epochs:</label>
-  <input type="number" id="pr-epochs" name="epochs" />
+  <input type="number" id="pr-epochs" name="epochs" value="10" />
 
   <label for="pr-metrics">metrics:</label>
   <select id="pr-metrics" name="pr_metrics" multiple>
@@ -47,14 +47,14 @@
     <table class="layer-table">
       <thead>
       <tr>
-        <th>Nombre de la capa</th>
-        <th>Unidades</th>
-        <th>Activación</th>
+        <th>Tipo de capa</th>
+        <th class="layer-units-cell">Unidades</th>
+        <th class="layer-activation-cell">Activación</th>
         <th>Acciones</th>
       </tr>
       </thead>
       <tbody id="pr-layers-container">
-      <!-- filas generadas dinámicamente -->
+      <!-- JS inyecta aquí Input, Output y capas dinámicas -->
       </tbody>
       <tfoot>
       <tr>
@@ -68,40 +68,31 @@
     </table>
   </fieldset>
 
-  <!-- template oculto -->
   <template id="pr-layer-template">
     <tr class="pr-layer-form">
-      <td>
-        <input
-                type="text"
-                name="pr_layerName"
-                placeholder="p.ej. Dense"
-        />
+      <td class="layer-name-cell">
+        <!-- JS inyecta aquí el <select> en dinámicas, o texto en fijas -->
       </td>
-      <td>
-        <input
-                type="number"
-                name="pr_units"
-                placeholder="Unidades"
-        />
+      <td class="layer-units-cell">
+        <input type="number" name="pr_units" step="1" placeholder="Unidades"/>
+        <input type="number" name="pr_rate" step="0.01" min="0" max="1" placeholder="Ratio" style="display:none"/>
       </td>
-      <td>
+      <td class="layer-activation-cell">
         <select name="pr_activation">
           <option value="relu">relu</option>
           <option value="tanh">tanh</option>
           <option value="sigmoid">sigmoid</option>
+          <option value="linear">linear</option>
         </select>
       </td>
       <td>
-        <button
-                type="button"
-                class="pr-remove-layer-btn button-link"
-        >
+        <button type="button" class="pr-remove-layer-btn button-link">
           Eliminar
         </button>
       </td>
     </tr>
   </template>
+
 </div>
 
 </html>

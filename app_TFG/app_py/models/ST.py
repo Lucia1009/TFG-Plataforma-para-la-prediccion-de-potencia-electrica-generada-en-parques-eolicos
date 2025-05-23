@@ -20,9 +20,7 @@ class ST(RedNeuronal):
         self.unidades_tiempo_futuras = "minutos"
         self.scaler_x = None
         self.scaler_y = None
-        self.X_val = None
-        self.y_val = None
-        self.vl_size = 0.1
+      
 
     def train_test_aleatorio(self):
         self.train_test_estratificado() 

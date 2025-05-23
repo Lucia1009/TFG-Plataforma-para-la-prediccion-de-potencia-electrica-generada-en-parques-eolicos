@@ -17,10 +17,9 @@ class PR(RedNeuronal):
         super().__init__()
         self.degree = 15
 
-
     def transform(self, Xtrain, Xtest):
             transformador = Pipeline([('scaler', StandardScaler()),  # normaliza los datos
-                    ('poly', PolynomialFeatures(degree=15))]) ################ grado
+                    ('poly', PolynomialFeatures(degree=self.degree))]) ################ grado
 
 
             self.X_train  = transformador.fit_transform(Xtrain)
@@ -63,10 +62,10 @@ class PR(RedNeuronal):
 
         layers_list = [keras.layers.Input(shape=(self.X_train.shape[1],))]
         for capa in self.layers:
-            if capa.type == 'Dense':
-                layers_list.append(layers.Dense(capa.units, activation=capa.activation))
-            # elif capa.type == 'Dropout':
-            #     layers_list.append(layers.Dropout(capa.rate))
+            if capa["name"] == 'Dense':
+                layers_list.append(layers.Dense(units=capa["units"], activation=capa["activation"]))
+            elif capa["name"] == 'Dropout':
+                layers_list.append(layers.Dropout(rate=capa["rate"]))
         layers_list.append(layers.Dense(1))
 
         self.model = keras.Sequential(layers_list)

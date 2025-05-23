@@ -14,6 +14,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
+import static java.lang.Float.parseFloat;
+import static java.lang.Integer.parseInt;
+
 @Controller
 public class ParamsModeloController {
 
@@ -58,12 +61,14 @@ public class ParamsModeloController {
             @RequestParam(value="pr_metrics", required=false)       List<String> prMetrics,
             @RequestParam(value="pr_layerName", required=false)     List<String> prLayerNames,
             @RequestParam(value="pr_units", required=false)         List<String> prUnits,
+            @RequestParam(value="pr_rate", required=false)          List<String> prRates,
             @RequestParam(value="pr_activation", required=false)    List<String> prActivations,
 
             /* ---------- Series Temporales ---------------- */
             @RequestParam(value="st_metrics", required=false)       List<String> stMetrics,
             @RequestParam(value="st_layerName", required=false)     List<String> stLayerNames,
             @RequestParam(value="st_units", required=false)         List<String> stUnits,
+            @RequestParam(value="st_rates", required=false)         List<String> stRates,
             @RequestParam(value="st_activation", required=false)    List<String> stActivations,
 
             /* ---------- Resto params normales ---------------- */
@@ -97,7 +102,7 @@ public class ParamsModeloController {
                 pr.setLoss(allParams.get("loss"));
                 pr.setEpochs(parseInt(allParams.get("epochs")));
                 pr.setMetrics(prMetrics != null ? prMetrics : Collections.emptyList());
-                pr.setLayers(buildLayers(prLayerNames, prUnits, prActivations));
+                pr.setLayers(buildLayers(prLayerNames, prUnits, prRates, prActivations));
                 dto = pr;
             }
             case "st" -> {
@@ -112,7 +117,7 @@ public class ParamsModeloController {
                 st.setOptimizer(allParams.get("optimizer"));
                 st.setLoss(allParams.get("loss"));
                 st.setMetrics(stMetrics != null ? stMetrics : Collections.emptyList());
-                st.setLayers(buildLayers(stLayerNames, stUnits, stActivations));
+                st.setLayers(buildLayers(stLayerNames, stUnits, stRates, stActivations ));
                 dto = st;
             }
             default -> throw new IllegalArgumentException("Unknown modelType: " + modelType);
@@ -128,25 +133,56 @@ public class ParamsModeloController {
         return "train_complete";
     }
 
-    private int parseInt(String s) {
-        try { return Integer.parseInt(s); }
-        catch (Exception e) { return 0; }
-    }
 
-    private List<CapaDto> buildLayers(List<String> names, List<String> units, List<String> activations) {
+    private List<CapaDto> buildLayers(List<String> names,
+                                      List<String> units,
+                                      List<String> rates,
+                                      List<String> activations) {
         if (names == null) return Collections.emptyList();
         List<CapaDto> capas = new ArrayList<>();
         for (int i = 0; i < names.size(); i++) {
             CapaDto c = new CapaDto();
-            c.setName(names.get(i));
-            c.setUnits(parseInt(units != null && units.size() > i ? units.get(i) : null));
-            c.setActivation(activations != null && activations.size() > i
-                    ? activations.get(i)
-                    : null);
+            String name = names.get(i);
+            c.setName(name);
+
+            // parsear unidades (solo para Dense; para Dropout lo ignoramos luego)
+            int unitVal = 0;
+            if (units != null && units.size() > i) {
+                String u = units.get(i);
+                if (u != null && !u.isBlank()) {
+                    try {
+                        unitVal = Integer.parseInt(u);
+                    } catch (NumberFormatException e) {
+                        // opcional: log.warn("unidad inválida '"+u+"', usando 0");
+                    }
+                }
+            }
+            c.setUnits(unitVal);
+
+            // parsear rate (solo para Dropout; para Dense lo ignoramos luego)
+            float rateVal = 0f;
+            if (rates != null && rates.size() > i) {
+                String r = rates.get(i);
+                if (r != null && !r.isBlank()) {
+                    try {
+                        rateVal = Float.parseFloat(r);
+                    } catch (NumberFormatException e) {
+                        System.out.println("rate inválido '"+r+"', usando 0.0");
+                    }
+                }
+            }
+            c.setRate(rateVal);
+
+            // activación: la dejamos tal cual (puede ser null o un string válido)
+            if (activations != null && activations.size() > i) {
+                c.setActivation(activations.get(i));
+            }
+
             capas.add(c);
         }
         return capas;
     }
+
 
 
 }

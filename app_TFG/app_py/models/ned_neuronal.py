@@ -16,6 +16,9 @@ class RedNeuronal(Modelo):
         self.y_train = None
         self.X_test = None
         self.y_test = None
+        self.X_val = None
+        self.y_val = None
+        self.vl_size = 0.1
         
 
     def set_optimizer(self, optimizer):
@@ -47,8 +50,13 @@ class RedNeuronal(Modelo):
     def train_model(self):
         self.build_model()
         self.model.compile(optimizer=self.optimizer, loss=self.loss, metrics=self.metrics)
-        self.model.fit(self.X_train, self.y_train, epochs=self.epochs, batch_size=self.batchSize, validation_data=(self.X_val, self.y_val))
+        if self.X_val is None:
+            self.model.fit(self.X_train, self.y_train, epochs=self.epochs, batch_size=self.batchSize)
+        else:
+            self.model.fit(self.X_train, self.y_train, epochs=self.epochs, batch_size=self.batchSize, validation_data=(self.X_val, self.y_val))
 
+
+        print(self.model.summary(), flush=True)
         print("Modelo entrenado con éxito", flush=True)
 
     def predict(self):
