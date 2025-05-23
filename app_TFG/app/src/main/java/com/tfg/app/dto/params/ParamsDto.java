@@ -14,5 +14,4 @@ import lombok.Setter;
 })
 public abstract class ParamsDto {
     private String modelType;
-    private String target;
 }

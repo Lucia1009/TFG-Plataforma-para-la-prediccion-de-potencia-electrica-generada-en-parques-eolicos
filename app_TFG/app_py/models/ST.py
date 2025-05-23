@@ -8,25 +8,24 @@ from tensorflow.keras.layers import Dense, LSTM, Dropout
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 
+from models.ned_neuronal import RedNeuronal
 
-class ST(Modelo):
+
+class ST(RedNeuronal):
     def __init__(self):
         super().__init__()
         self.datosPasados = 1
         self.unidades_tiempo_pasadas = "minutos"
         self.datosFuturos = 1
         self.unidades_tiempo_futuras = "minutos"
-        self.epochs = 10
-        self.batchSize = 32
-        self.optimizer = "adam"
-        self.loss = "mean_squared_error"
-        self.metrics = []
-        self.layers = []
-        self.vl_size = 0.1
-        self.X_val = None
-        self.y_val = None
         self.scaler_x = None
         self.scaler_y = None
+        self.X_val = None
+        self.y_val = None
+        self.vl_size = 0.1
+
+    def train_test_aleatorio(self):
+        self.train_test_estratificado() 
 
     def train_test_estratificado(self):
            
@@ -90,45 +89,28 @@ class ST(Modelo):
         self.y_train = self.scaler_y.fit_transform(ytrain.reshape(-1, 1)).reshape(ytrain.shape)
         self.y_val = self.scaler_y.transform(yval.reshape(-1, 1)).reshape(yval.shape)
         self.y_test = self.scaler_y.transform(ytest.reshape(-1, 1)).reshape(ytest.shape)
+   
 
-
-    def train_test_aleatorio(self):
-        self.train_test_estratificado()    
-
-    def train_model(self):
+    def build_model(self):
         for param in self.__dict__:
             print(f"{param}: {self.__dict__[param]}", flush=True)
 
         INPUT_SHAPE = (self.X_train.shape[1], self.X_train.shape[2])
         N_UNITS = self.layers[0].units
 
-        modelo = Sequential()
-        modelo.add(LSTM(N_UNITS, input_shape=INPUT_SHAPE))
+        self.model = Sequential()
+        self.model.add(LSTM(N_UNITS, input_shape=INPUT_SHAPE))
         for capa in self.layers:
             if capa.type == 'LSTM':
-                modelo.add(LSTM(capa.units, return_sequences=True))
+                self.model.add(LSTM(capa.units, return_sequences=True))
             elif capa.type == 'Dense':
-                modelo.add(Dense(capa.units, activation=capa.activation))
+                self.model.add(Dense(capa.units, activation=capa.activation))
             # elif capa.type == 'Dropout':
             #     modelo.add(Dropout(capa.rate))
-        modelo.add(Dense(self.datosFuturos, activation='linear'))
-        modelo.compile(optimizer=self.optimizer, loss=self.loss, metrics=self.metrics)
-        modelo.summary()
+        self.model.add(Dense(self.datosFuturos, activation='linear'))
+        
+        print("ST", flush=True)
 
-
-        EPOCHS = 10
-        BATCH_SIZE = 256
-
-        historia = modelo.fit(
-            x = self.X_train,
-            y = self.y_train,
-            batch_size = BATCH_SIZE,
-            epochs = EPOCHS,
-            validation_data = (self.X_val, self.y_val),
-            verbose=1
-        )
-
-        print("ST entrenada con éxito", flush=True)
 
 
     def desescalar(self):

@@ -23,7 +23,7 @@
 
     <!-- Si success=true redirige a la selección de parámetros -->
     <div th:if="${success}">
-      <form th:action="@{/Seleccion_params_modelo}" method="get">
+      <form th:action="@{/createDataset}" method="get">
         <button type="submit">Aceptar</button>
       </form>
     </div>
