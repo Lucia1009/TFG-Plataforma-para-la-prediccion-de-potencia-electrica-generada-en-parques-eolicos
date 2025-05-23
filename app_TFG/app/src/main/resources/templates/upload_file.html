@@ -9,6 +9,8 @@
 <body>
 <h1>Sube tu CSV</h1>
 
+<h1 th:text="${prueba}" ></h1>
+
 <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
   <input type="file" name="file" accept=".csv" required/>
   <button type="submit">Subir</button>

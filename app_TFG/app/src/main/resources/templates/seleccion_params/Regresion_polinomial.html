@@ -2,6 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="prForm">
   <h2>Regresión Polinomial</h2>
+
+  <label for="rf-estratificado">
+    <input type="checkbox" id="rf-estratificado"
+           name="estratificado" value="true"/>
+    estratificado
+  </label>
+
   <label for="pr-degree">degree:</label>
   <input type="number" id="pr-degree" name="degree" value="15" />
 
@@ -52,7 +59,9 @@
       <tfoot>
       <tr>
         <td colspan="4">
-          <button type="button" id="pr-add-layer-btn" class="button">+ Añadir capa</button>
+          <button type="button" id="pr-add-layer-btn" class="button">
+            + Añadir capa
+          </button>
         </td>
       </tr>
       </tfoot>
@@ -62,8 +71,20 @@
   <!-- template oculto -->
   <template id="pr-layer-template">
     <tr class="pr-layer-form">
-      <td><input type="text" name="pr_layerName" placeholder="p.ej. Dense" /></td>
-      <td><input type="number" name="pr_units" placeholder="Unidades" /></td>
+      <td>
+        <input
+                type="text"
+                name="pr_layerName"
+                placeholder="p.ej. Dense"
+        />
+      </td>
+      <td>
+        <input
+                type="number"
+                name="pr_units"
+                placeholder="Unidades"
+        />
+      </td>
       <td>
         <select name="pr_activation">
           <option value="relu">relu</option>
@@ -72,10 +93,15 @@
         </select>
       </td>
       <td>
-        <button type="button" class="pr-remove-layer-btn button-link">Eliminar</button>
+        <button
+                type="button"
+                class="pr-remove-layer-btn button-link"
+        >
+          Eliminar
+        </button>
       </td>
     </tr>
   </template>
-
 </div>
+
 </html>
