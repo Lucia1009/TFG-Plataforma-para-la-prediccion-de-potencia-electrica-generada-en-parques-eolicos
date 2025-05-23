@@ -38,13 +38,6 @@
 </nav>
 
 <form id="modelForm" th:action="@{/model/train}" method="post">
-    <div>
-        <label for="target" th:text="Target"></label>
-        <select class="target_selector" name="target" id="target">
-            <option value=""> Seleccione la clase objetivo</option>
-            <option th:each="col : ${columnas}" th:value="${col}" th:text="${col}"></option>
-        </select>
-    </div>
 
     <input type="hidden" id="modelTypeHidden" name="modelType" value="rf"/>
 

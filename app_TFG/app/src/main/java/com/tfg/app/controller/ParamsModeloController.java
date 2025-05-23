@@ -37,26 +37,12 @@ public class ParamsModeloController {
         return "Seleccion_params_modelo";
     }
 
-    /*@PostMapping("/setTarget")
-    public String seleccionModelo(Model model, @RequestParam("target") String target) {
-
-        setTarget(target);
-
-        model.addAttribute("target", target);
-
-        return "Seleccion_params_modelo";
-    }*/
-
-
 
 
     @PostMapping("/model/train")
     public String trainModel(
             Model model,
             @RequestParam("modelType") String modelType,
-
-            /* ---------- Target ---------------- */
-            @RequestParam("target") String target,
 
             /* ---------- Train_test_split ---------------- */
             @RequestParam(value="estratificado", defaultValue="false")
@@ -91,7 +77,6 @@ public class ParamsModeloController {
             case "rf" -> {
                 RFParamsDto rf = new RFParamsDto();
                 rf.setModelType("rf");
-                rf.setTarget(target);
                 rf.setEstratificado(estratificado);
                 rf.setComputeOobVariableImportances(computeOob);
                 rf.setWinnerTakeAll(winnerTakeAll);
@@ -106,7 +91,6 @@ public class ParamsModeloController {
             case "pr" -> {
                 PRParamsDto pr = new PRParamsDto();
                 pr.setModelType("pr");
-                pr.setTarget(target);
                 pr.setEstratificado(estratificado);
                 pr.setDegree(parseInt(allParams.get("degree")));
                 pr.setOptimizer(allParams.get("optimizer"));
@@ -119,7 +103,6 @@ public class ParamsModeloController {
             case "st" -> {
                 STParamsDto st = new STParamsDto();
                 st.setModelType("st");
-                st.setTarget(target);
                 st.setDatosPasados(parseInt(allParams.get("datosPasados")));
                 st.setUnidades_tiempo_pasadas(allParams.get("unidades_tiempo_pasadas"));
                 st.setDatosFuturos(parseInt(allParams.get("datosFuturos")));

@@ -1,6 +1,5 @@
 package com.tfg.app.controller;
 
-import com.tfg.app.dto.ColumnasDto;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;

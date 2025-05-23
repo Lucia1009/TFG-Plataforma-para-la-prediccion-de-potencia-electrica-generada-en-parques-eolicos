@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 2em;
+}
+
+h1 {
+    margin-bottom: 1em;
+}
+
+.field-group {
+    margin-bottom: 0.5em;
+}
+
+.field-group label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}
+
+.field-group input {
+    width: 200px;
+    padding: 0.25em;
+}
+
+.field-group button.remove {
+    margin-left: 0.5em;
+}
+
+#add-feature-btn {
+    margin-top: 1em;
+}
+
+.actions {
+    margin-top: 1.5em;
+}

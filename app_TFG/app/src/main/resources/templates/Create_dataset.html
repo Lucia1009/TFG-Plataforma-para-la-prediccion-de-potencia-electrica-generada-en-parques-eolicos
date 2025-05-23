@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleccione las columnas</title>
+    <!-- Enlazamos el CSS externo -->
+    <link rel="stylesheet" href="../css/seleccionar_columnas.css">
+</head>
+<body>
+<h1>Seleccione las columnas con las que va a trabajar el modelo</h1>
+
+<form id="ColumnasForm" th:action="@{/createDataset}" method="post">
+    <!-- Fijos -->
+    <div class="field-group">
+        <label for="target">Target</label>
+        <input
+                type="text"
+                id="target"
+                name="target"
+                list="columnasList"
+                placeholder="Ej: Potencia…"
+                autocomplete="off"
+        />
+    </div>
+
+    <div class="field-group">
+        <label for="direccion_viento">Dirección de viento</label>
+        <input
+                type="text"
+                id="direccion_viento"
+                name="direccion_viento"
+                list="columnasList"
+                placeholder="Ej: wd…"
+                autocomplete="off"
+        />
+    </div>
+
+    <div class="field-group">
+        <label for="tiempo">tiempo</label>
+        <input
+                type="text"
+                id="tiempo"
+                name="tiempo"
+                list="columnasList"
+                placeholder="Ej: TIME…"
+                autocomplete="off"
+        />
+    </div>
+
+    <h2>Otras columnas</h2>
+    <div class="dynamic-section">
+        <input
+                type="text" id="feature-input" placeholder="Escribe y pulsa Añadir…"
+                list="columnasList" autocomplete="off"
+        />
+        <button type="button" id="add-feature-btn">Añadir</button>
+    </div>
+
+    <!-- Aquí aparecen las “etiquetas” -->
+    <div id="tags-container"></div>
+
+    <!-- Datalist compartido -->
+    <datalist id="columnasList">
+        <option th:each="col : ${columnas}" th:value="${col}"></option>
+    </datalist>
+
+    <div class="actions">
+        <button type="submit">Enviar</button>
+    </div>
+</form>
+
+<script th:src="@{/js/seleccion_columnas_dataset.js}"></script>
+</body>
+</html>
