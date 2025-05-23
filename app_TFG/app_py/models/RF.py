@@ -37,12 +37,6 @@ class RF(Modelo):
             else:
                 datos_train_rf.append(df.iloc[i])
 
-        print(len(datos_train_rf), len(datos_test_rf))
-        print(df.shape[0]/len(datos_test_rf))
-        print(df.shape[0]/4)
-
-        print(datos_train_rf[0], "\n", datos_train_rf[1])
-
         self.df_train = pd.DataFrame(datos_train_rf)
         self.df_test = pd.DataFrame(datos_test_rf)
        

@@ -8,5 +8,6 @@ import lombok.Setter;
 public class CapaDto {
     private String name;
     private int units;
+    private float rate;
     private String activation;
 }

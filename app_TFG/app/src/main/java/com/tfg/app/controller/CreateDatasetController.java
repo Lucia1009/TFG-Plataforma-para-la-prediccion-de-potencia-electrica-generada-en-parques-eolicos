@@ -43,7 +43,7 @@ public class CreateDatasetController {
 
     @PostMapping("/createDataset")
     public String createDataset(@RequestParam("target") String target, @RequestParam("direccion_viento") String wd,
-                                @RequestParam("tiempo") String tiempo,@RequestParam("resto_columnas") List<String> restocolumnas) {
+                                @RequestParam("tiempo") String tiempo,@RequestParam(value="resto_columnas", required=false) List<String> restocolumnas) {
         Dataset_ColumnasDto dto = new Dataset_ColumnasDto(target, wd, tiempo, restocolumnas);
 
         restTemplate.postForObject(url+"createDataset", dto, Dataset_ColumnasDto.class);

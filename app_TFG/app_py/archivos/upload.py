@@ -44,6 +44,10 @@ def createDataset():
 
     df = data.get_data()
     columns= request.json['columns']
+    if columns is None:
+        columns = []
+    if not all(col in df.columns for col in columns):
+        return jsonify({'error': 'No se han encontrado todas las columnas seleccionadas en el dataset'}), 400
     columns.append(request.json['wd'])
     columns.append(request.json['time'])
     columns.append(request.json['target'])
