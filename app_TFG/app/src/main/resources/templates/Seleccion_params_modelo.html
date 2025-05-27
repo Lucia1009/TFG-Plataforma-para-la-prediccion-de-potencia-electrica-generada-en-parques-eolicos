@@ -42,13 +42,13 @@
     <input type="hidden" id="modelTypeHidden" name="modelType" value="rf"/>
 
     <div id="model-form-rf" class="model-form"
-         th:insert="seleccion_params/Random_forest :: rfForm"></div>
+         th:insert="~{seleccion_params/Random_forest :: rfForm}"></div>
 
     <div id="model-form-pr" class="model-form"
-         th:insert="seleccion_params/Regresion_polinomial :: prForm"></div>
+         th:insert="~{seleccion_params/Regresion_polinomial :: prForm}"></div>
 
     <div id="model-form-st" class="model-form"
-         th:insert="seleccion_params/Series_temporales :: stForm"></div>
+         th:insert="~{seleccion_params/Series_temporales :: stForm}"></div>
 
     <button type="submit">Enviar parámetros</button>
 </form>
@@ -56,7 +56,6 @@
 <!-- scripts de tu lógica + pestañas -->
 <script th:src="@{/js/parametros_modelo.js}"></script>
 <script th:src="@{/js/RF_sparse_oblique.js}"></script>
-<script th:src="@{/js/PR_capas.js}"></script>
-<script th:src="@{/js/ST_capas.js}"></script>
+<script th:src="@{/js/aniadir_capa.js}"></script>
 </body>
 </html>

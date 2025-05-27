@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 
 import tensorflow as tf
+from tensorflow import keras
+from keras import layers
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM, Dropout
 from sklearn.preprocessing import MinMaxScaler
@@ -26,12 +28,12 @@ class ST(RedNeuronal):
         self.train_test_estratificado() 
 
     def train_test_estratificado(self):
-           
-        N = self.df.shape[0]
+        df=self.data.get_data()
+        N = df.shape[0]
         Ntrain = int(self.tr_size*N)  # Número de datos de entrenamiento
         Nval = int(self.vl_size*N)    # Número de datos de validación
 
-        datos_array = self.df.values
+        datos_array = df.values
 
         # Realizar partición
         train = datos_array[0:Ntrain]
@@ -70,7 +72,7 @@ class ST(RedNeuronal):
 
 
     def escalar_dataset(self, Xtrain, ytrain, Xval, yval, Xtest, ytest):
-        NFEATS = self.X_train.shape[2]
+        NFEATS = Xtrain.shape[2]
 
         # Create a scaler for input features
         self.scaler_x = MinMaxScaler(feature_range=(-1, 1))
@@ -94,19 +96,20 @@ class ST(RedNeuronal):
             print(f"{param}: {self.__dict__[param]}", flush=True)
 
         INPUT_SHAPE = (self.X_train.shape[1], self.X_train.shape[2])
-        N_UNITS = self.layers[0].units
 
-        self.model = Sequential()
-        self.model.add(LSTM(N_UNITS, input_shape=INPUT_SHAPE))
-        for capa in self.layers:
-            if capa.type == 'LSTM':
-                self.model.add(LSTM(capa.units, return_sequences=True))
-            elif capa.type == 'Dense':
-                self.model.add(Dense(capa.units, activation=capa.activation))
-            # elif capa.type == 'Dropout':
-            #     modelo.add(Dropout(capa.rate))
-        self.model.add(Dense(self.datosFuturos, activation='linear'))
         
+        layers_list = [ keras.layers.Input(shape=INPUT_SHAPE)]
+        
+        for capa in self.layers[1:]:
+            if capa["name"] == 'LSTM':
+                layers_list.append(LSTM(capa["units"], return_sequences=True))
+            elif capa["name"] == 'Dense':
+                layers_list.append(Dense(capa["units"], activation=capa["activation"]))
+            elif capa["name"] == 'Dropout':
+                layers_list.append(Dropout(capa["rate"]))
+        layers_list.append(Dense(self.datosFuturos, activation='linear'))
+        self.model = Sequential(layers_list)
+
         print("ST", flush=True)
 
 

@@ -1,18 +1,19 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="stForm">
   <h2>Series Temporales</h2>
 
   <label for="st-datos-pasados">Número de unidades de tiempo pasadas que tomar como referencia:</label>
-  <input type="number" id="st-datos-pasados" name="datosPasados" />
+  <input type="number" id="st-datos-pasados" name="datosPasados" th:value="1"/>
   <select id="st_unidades_tiempo_pasadas" name="unidades_tiempo_pasadas">
-    <option value="minutos" selected>minutos</option>
+    <option value="minutos">minutos</option>
     <option value="horas">horas</option>
-    <option value="días">días</option>
+    <option value="días" selected>días</option>
   </select>
 
   <label for="st-datos-futuros">Número de unidades de tiempo futuras que tomar como referencia:</label>
-  <input type="number" id="st-datos-futuros" name="datosFuturos" />
+  <input type="number" id="st-datos-futuros" name="datosFuturos" th:value="60"/>
   <select id="st_unidades_tiempo_futuras" name="unidades_tiempo_futuras">
     <option value="minutos" selected>minutos</option>
     <option value="horas">horas</option>
@@ -20,10 +21,10 @@
   </select>
 
   <label for="st-epochs">epochs:</label>
-  <input type="number" id="st-epochs" name="epochs" />
+  <input type="number" id="st-epochs" name="epochs" th:value="10"/>
 
   <label for="st-batch-size">batchSize:</label>
-  <input type="number" id="st-batch-size" name="batchSize" />
+  <input type="number" id="st-batch-size" name="batchSize" th:value="256"/>
 
   <label for="st-optimizer">optimizer:</label>
   <select id="st-optimizer" name="optimizer">
@@ -48,7 +49,7 @@
     <option value="MeanSquaredLogarithmicError">MeanSquaredLogarithmicError</option>
     <option value="CosineSimilarity">CosineSimilarity</option>
     <option value="LogCoshError">LogCoshError</option>
-    <option value="R2Score" selected>R2Score</option>
+<!--    <option value="R2Score" selected>R2Score</option>-->
   </select>
 
   <!-- capas -->
@@ -57,31 +58,36 @@
     <table class="layer-table">
       <thead>
       <tr>
-        <th>Nombre de la capa</th>
-        <th>Unidades</th>
-        <th>Activación</th>
+        <th>Tipo de capa</th>
+        <th class="layer-units-cell">Unidades</th>
+        <th class="layer-activation-cell">Activación</th>
         <th>Acciones</th>
       </tr>
       </thead>
       <tbody id="st-layers-container">
-      <!-- filas generadas dinámicamente -->
+      <!-- JS inyectará aquí Input, Output y capas dinámicas -->
       </tbody>
       <tfoot>
       <tr>
         <td colspan="4">
-          <button type="button" id="st-add-layer-btn" class="button">+ Añadir capa</button>
+          <button type="button" id="st-add-layer-btn" class="button">
+            + Añadir capa
+          </button>
         </td>
       </tr>
       </tfoot>
     </table>
   </fieldset>
 
-  <!-- template oculto -->
+  <!-- template oculto para capas -->
   <template id="st-layer-template">
     <tr class="st-layer-form">
-      <td><input type="text" name="st_layerName" placeholder="p.ej. LSTM" /></td>
-      <td><input type="number" name="st_units" placeholder="Unidades" /></td>
-      <td>
+      <td class="layer-name-cell"><!-- JS inyecta aquí el <select> --></td>
+      <td class="layer-units-cell">
+        <input type="number" name="st_units" step="1" placeholder="Unidades"/>
+        <input type="number" name="st_rate" step="0.01" min="0" max="1" placeholder="Ratio" style="display:none"/>
+      </td>
+      <td class="layer-activation-cell">
         <select name="st_activation">
           <option value="relu">relu</option>
           <option value="tanh">tanh</option>
@@ -94,5 +100,4 @@
     </tr>
   </template>
 </div>
-
 </html>

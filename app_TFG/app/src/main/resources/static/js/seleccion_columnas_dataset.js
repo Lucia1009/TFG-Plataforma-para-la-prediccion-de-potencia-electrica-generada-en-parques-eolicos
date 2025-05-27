@@ -1,57 +1,80 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const input     = document.getElementById('feature-input');
-    const addBtn    = document.getElementById('add-feature-btn');
-    const tagsBox   = document.getElementById('tags-container');
-    const form      = document.getElementById('ColumnasForm');
-    let features    = [];
+    const checkbox = document.getElementById('select-all-columns');
+    const datalist = document.getElementById('columnasList');
+    const tagsContainer = document.getElementById('tags-container');
 
-    function renderTag(value) {
-        // etiqueta visible
-        const tag = document.createElement('span');
-        tag.className = 'tag';
-        tag.textContent = value;
+    const targetInput = document.getElementById('target');
+    const vientoInput = document.getElementById('direccion_viento');
+    const tiempoInput = document.getElementById('tiempo');
 
-        // botón de eliminar
-        const close = document.createElement('button');
-        close.type = 'button';
-        close.className = 'tag-close';
-        close.textContent = '×';
-        tag.appendChild(close);
+    const featureInput = document.getElementById('feature-input');
+    const addFeatureBtn = document.getElementById('add-feature-btn');
 
-        // hidden input
-        const hidden = document.createElement('input');
-        hidden.type = 'hidden';
-        hidden.name = 'resto_columnas';
-        hidden.value = value;
-        tag.appendChild(hidden);
+    function crearTag(value) {
+        const span = document.createElement('span');
+        span.classList.add('tag');
+        span.textContent = value;
 
-        // manejar borrado
-        close.addEventListener('click', () => {
-            features = features.filter(f => f !== value);
-            tagsBox.removeChild(tag);
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'features';
+        hiddenInput.value = value;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.textContent = 'x';
+        removeBtn.addEventListener('click', () => {
+            tagsContainer.removeChild(span);
+            tagsContainer.removeChild(hiddenInput);
         });
 
-        tagsBox.appendChild(tag);
+        span.appendChild(removeBtn);
+        tagsContainer.appendChild(span);
+        tagsContainer.appendChild(hiddenInput);
     }
 
-    function addFeature() {
-        const val = input.value.trim();
-        if (val && !features.includes(val)) {
-            features.push(val);
-            renderTag(val);
+    checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+            const options = datalist.querySelectorAll('option');
+            const excluidos = new Set([
+                targetInput.value.trim(),
+                vientoInput.value.trim(),
+                tiempoInput.value.trim()
+            ]);
+
+            options.forEach(option => {
+                const value = option.value.trim();
+                if (
+                    value &&
+                    !excluidos.has(value) &&
+                    !document.querySelector(`input[name="features"][value="${value}"]`)
+                ) {
+                    crearTag(value);
+                }
+            });
+        } else {
+            // Elimina todas las features añadidas automáticamente
+            const inputs = tagsContainer.querySelectorAll('input[name="features"]');
+            inputs.forEach(input => {
+                const span = [...tagsContainer.children].find(el => el.textContent?.startsWith(input.value));
+                if (span) tagsContainer.removeChild(span);
+                tagsContainer.removeChild(input);
+            });
         }
-        input.value = '';
-        input.focus();
-    }
+    });
 
-    // click en botón
-    addBtn.addEventListener('click', addFeature);
+    addFeatureBtn.addEventListener('click', () => {
+        const value = featureInput.value.trim();
 
-    // tecla Enter dentro del input
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            addFeature();
+        if (
+            value &&
+            value !== targetInput.value.trim() &&
+            value !== vientoInput.value.trim() &&
+            value !== tiempoInput.value.trim() &&
+            !document.querySelector(`input[name="features"][value="${value}"]`)
+        ) {
+            crearTag(value);
+            featureInput.value = '';
         }
     });
 });
