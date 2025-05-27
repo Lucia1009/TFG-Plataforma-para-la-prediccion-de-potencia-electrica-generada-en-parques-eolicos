@@ -72,8 +72,8 @@ class PR(RedNeuronal):
 
         print("PR", flush=True)
 
-def predict(self):
-    return self.model.predict(self.X_test)
+    def predict(self):
+        return self.model.predict(self.X_test)
     
             
        
