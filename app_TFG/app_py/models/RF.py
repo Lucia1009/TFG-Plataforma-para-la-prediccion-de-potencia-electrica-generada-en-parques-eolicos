@@ -60,7 +60,8 @@ class RF(Modelo):
         print("RF entrenada con éxito", flush=True)
 
     def evaluate(self):
-        self.evaluacion=self.model.evaluate(self.df_test)
+        eval=self.model.evaluate(self.df_test).to_dict()
+        self.evaluacion = {'rmse': eval['rmse']}
 
     def predict(self):
         return self.model.predict(self.df_test)

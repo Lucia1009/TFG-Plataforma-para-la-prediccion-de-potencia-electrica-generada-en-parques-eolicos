@@ -130,7 +130,7 @@ public class ParamsModeloController {
         restTemplate.postForObject(url + "train_model", request, String.class);
 
         // 3) Redirigimos de nuevo al formulario
-        return "train_complete";
+        return "redirect:/train_complete";
     }
 
 
