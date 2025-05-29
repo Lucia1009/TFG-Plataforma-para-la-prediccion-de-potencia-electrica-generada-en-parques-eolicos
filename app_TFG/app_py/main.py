@@ -4,7 +4,7 @@ from flask import Flask
 # import blueprints
 from archivos.upload import upload_bp, get_columns_bp, create_dataset_bp
 from archivos.upload import data
-from models.recibir_model import train_bp
+from models.recibir_model import train_bp, eval_bp
 
 app = Flask(__name__)
 
@@ -13,6 +13,7 @@ app.register_blueprint(upload_bp)
 app.register_blueprint(get_columns_bp)
 app.register_blueprint(train_bp)
 app.register_blueprint(create_dataset_bp)
+app.register_blueprint(eval_bp)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

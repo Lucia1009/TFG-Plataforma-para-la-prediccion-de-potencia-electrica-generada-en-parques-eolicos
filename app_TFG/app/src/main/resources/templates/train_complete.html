@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8" /><title>Subir archivo</title></head>
-<body>
-<h1>Entrenamiento completado</h1>
+<head><meta charset="UTF-8" /><title>Entrenamiento completado</title></head>
 
-<p th:text="${message}">Mensaje aquí</p>
+<h1 th:text="${message}">Training Complete</h1>
+
+<h2>Métricas del modelo</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Métrica</th>
+        <th>Valor</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="metrica : ${evaluaciones}">
+        <td th:text="${metrica.key}">Nombre de la métrica</td>
+        <td th:text="${metrica.value}">Valor</td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>
+

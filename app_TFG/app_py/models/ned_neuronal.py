@@ -68,5 +68,7 @@ class RedNeuronal(Modelo):
                 
     def evaluate(self):
         
-        self.evaluacion = self.model.evaluate(self.X_test, self.y_test)
-        return self.evaluacion      
+        eval = self.model.evaluate(self.X_test, self.y_test)
+        self.evaluacion = {metric: value for metric, value in zip(self.metrics, eval)}
+
+        return self.evaluacion
