@@ -4,29 +4,11 @@
     <meta charset="UTF-8"/>
     <title>Selector de Modelos ML</title>
     <link rel="stylesheet" th:href="@{/css/seleccion_parametros.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragmentos.css}" />
 </head>
 <body>
 <h1>Selección de parámetros para los Modelos</h1>
 
-
-<!-- SELECTOR DE TARGET  -->
-<!--<form th:action="@{/setTarget}" method="post">-->
-<!--    <label for="target">Target</label>-->
-<!--    <select class="target_selector" name="target" id="target">-->
-<!--        &lt;!&ndash; Opción por defecto &ndash;&gt;-->
-<!--        <option value=""-->
-<!--                th:selected="${target == null or target == ''}">-->
-<!--            &#45;&#45; Seleccione la clase objetivo &#45;&#45;-->
-<!--        </option>-->
-<!--        &lt;!&ndash; Opciones dinámicas &ndash;&gt;-->
-<!--        <option th:each="col : ${columnas}"-->
-<!--                th:value="${col}"-->
-<!--                th:text="${col}"-->
-<!--                th:selected="${col == target}">-->
-<!--        </option>-->
-<!--    </select>-->
-<!--&lt;!&ndash;    <button type="submit" id="selectButton" disabled>Seleccionar</button>&ndash;&gt;-->
-<!--</form>-->
 
 <!-- NAV DE PESTAÑAS -->
 <nav class="tabs">
@@ -50,12 +32,15 @@
     <div id="model-form-st" class="model-form"
          th:insert="~{seleccion_params/Series_temporales :: stForm}"></div>
 
-    <button type="submit">Enviar parámetros</button>
+    <div class="button-container">
+        <button type="submit" class="enviar_parametros">Enviar parámetros</button>
+    </div>
 </form>
 
 <!-- scripts de tu lógica + pestañas -->
 <script th:src="@{/js/parametros_modelo.js}"></script>
 <script th:src="@{/js/RF_sparse_oblique.js}"></script>
 <script th:src="@{/js/aniadir_capa.js}"></script>
+<script th:src="@{/js/seleccion_metricas.js}"></script>
 </body>
 </html>

@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8" /><title>Entrenamiento completado</title></head>
+<head>
+    <meta charset="UTF-8" />
+    <title>Entrenamiento completado</title>
+    <link rel="stylesheet" th:href="@{/css/train_complete.css}" />
+</head>
+<body>
 
-<h1 th:text="${message}">Training Complete</h1>
+<h1>Entrenamiento completado!</h1>
 
 <h2>Métricas del modelo</h2>
 <table>
@@ -13,7 +18,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="metrica : ${evaluaciones}">
+    <tr th:each="metrica : ${evaluaciones}" class="fila_tabla">
         <td th:text="${metrica.key}">Nombre de la métrica</td>
         <td th:text="${metrica.value}">Valor</td>
     </tr>
@@ -22,4 +27,3 @@
 
 </body>
 </html>
-

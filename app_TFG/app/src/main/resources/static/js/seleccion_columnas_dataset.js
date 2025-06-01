@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const removeBtn = document.createElement('button');
         removeBtn.type = 'button';
-        removeBtn.textContent = 'x';
+        removeBtn.textContent = '×';
+        removeBtn.classList.add('remove-btn');
         removeBtn.addEventListener('click', () => {
             tagsContainer.removeChild(span);
             tagsContainer.removeChild(hiddenInput);
