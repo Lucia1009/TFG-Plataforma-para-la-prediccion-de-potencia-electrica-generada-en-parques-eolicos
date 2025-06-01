@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="rfForm">
-  <h2>Random Forest</h2>
-  <label for="rf-estratificado">
-    <input type="checkbox" id="rf-estratificado"
-           name="estratificado" value="true"/>
-    estratificado
+<div th:fragment="rfForm" class="Form">
+  <h2 class="titulo">Random Forest</h2>
+
+  <label class="checkbox-label">
+    <input type="checkbox" id="rf-estratificado" name="estratificado" value="true" />
+    <span>estratificado</span>
   </label>
+
+
   <label for="rf-num-trees">num_trees:</label>
   <input type="number" id="rf-num-trees" name="num_trees" value="301" />
 
@@ -19,6 +19,15 @@
     <option value="SPARSE_OBLIQUE" selected>SPARSE_OBLIQUE</option>
     <option value="MHLD_OBLIQUE">MHLD_OBLIQUE</option>
   </select>
+
+  <div id="sparseNormContainer">
+    <label for="rf-sparse-norm">sparse_oblique_normalization:</label>
+    <select id="rf-sparse-norm" name="sparse_oblique_normalization">
+      <option value="NONE">NONE</option>
+      <option value="STANDARD_DEVIATION" selected>STANDARD_DEVIATION</option>
+      <option value="MIN_MAX">MIN_MAX</option>
+    </select>
+  </div>
 
   <label for="rf-categorical-algo">categorical_algorithm:</label>
   <select id="rf-categorical-algo" name="categorical_algorithm">
@@ -34,25 +43,17 @@
     <option value="RANDOM_LOCAL_IMPUTATION" selected>RANDOM_LOCAL_IMPUTATION</option>
   </select>
 
-  <div id="sparseNormContainer">
-    <label for="rf-sparse-norm">sparse_oblique_normalization:</label>
-    <select id="rf-sparse-norm" name="sparse_oblique_normalization">
-      <option value="NONE">NONE</option>
-      <option value="STANDARD_DEVIATION" selected>STANDARD_DEVIATION</option>
-      <option value="MIN_MAX">MIN_MAX</option>
-    </select>
-  </div>
 
-  <label for="rf-compute-oob">
-    <input type="checkbox" id="rf-compute-oob"
-           name="compute_oob_variable_importances" value="true" checked/>
-    compute_oob_variable_importances
+  <label class="checkbox-label">
+    <input type="checkbox" id="rf-compute-oob" name="compute_oob_variable_importances" value="true"/>
+    <span>compute_oob_variable_importances</span>
   </label>
 
-  <label for="rf-winner-all">
-    <input type="checkbox" id="rf-winner-all"
-           name="winner_take_all" value="true"/>
-    winner_take_all
+
+  <label class="checkbox-label">
+    <input type="checkbox" id="rf-winner-all" name="winner_take_all" value="true"/>
+    <span>winner_take_all</span>
   </label>
+
 </div>
-</html>
+

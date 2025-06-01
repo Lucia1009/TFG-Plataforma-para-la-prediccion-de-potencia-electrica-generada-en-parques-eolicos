@@ -24,7 +24,6 @@ public class TrainCompleteController {
     public String trainComplete(ModelMap modelMap) {
 
         EvalDto evaluaciones = restTemplate.getForObject(url+"get_eval", EvalDto.class);
-        modelMap.addAttribute("message", evaluaciones.getMensaje());
         System.out.println("JAVA");
         System.out.println(evaluaciones.getEvaluacion());
 

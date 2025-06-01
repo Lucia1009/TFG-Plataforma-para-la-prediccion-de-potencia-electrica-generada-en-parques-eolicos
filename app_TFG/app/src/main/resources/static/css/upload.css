@@ -1,4 +1,25 @@
-/* Modal overlay */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+}
+
+
+/* Mensaje de archivo subido */
 #modalOverlay {
     position: fixed;
     top: 0;
@@ -20,8 +41,6 @@
     justify-content: center;
 }
 
-
-/* Modal box */
 #modalBox {
     background: #fff;
     padding: 1.5em;
@@ -33,7 +52,7 @@
 }
 
 #modalBox button {
-    margin-top: 1em;
+    margin-top: 5px;
     padding: 0.5em 1em;
     background: #0073aa;
     color: #fff;
@@ -45,3 +64,156 @@
 #modalBox button:hover {
     background: #005177;
 }
+
+.imagen{
+    margin-top: 5px;
+    width: 50px;
+}
+
+
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 450px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 700px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Título */
+.container h1 {
+    font-family: sans-serif;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-layout {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Texto de subir archivo y archivo subido */
+#mensaje_upload {
+    font-size: 0.95em;
+    color: #333;
+    display: block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* Botón de seleccionar archivos */
+.upload-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.subir-btn {
+    margin-top: 20px;
+    padding: 10px 10px;
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.subir-btn:hover {
+    background: #1e7e34;
+}
+
+/* Drop zone actualizado */
+.drop-zone {
+    width: 400px;
+    height: 220px;
+    border: 2px dashed #cccccc;
+    border-radius: 10px;
+    text-align: center;
+    color: #333;
+    transition: border-color 0.3s;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.drop-zone p {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+
+/* Botón de subir archivo */
+.drop-zone label {
+    display: inline-block;
+    padding: 8px 24px;
+    margin-bottom: 10px;
+    background: #0073aa;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #0073aa;
+    color: white;
+}
+
+.drop-zone label:hover {
+    background: #005177;
+    border-color: #005177;
+}
+
+
+.drop-zone input[type=file] {
+    display: none;
+}
+
+/* oscurecimiento cuando se arrastra un archivo */
+.drop-zone.dragover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #666;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+
+/* Botón de submit */
+.submit-container {
+    width: 400px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+
+/* Spinner estilo animado */
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #0073aa;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 10px auto 0;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Oculto por defecto */
+.hidden {
+    display: none;
+}
+

@@ -1,35 +1,47 @@
-<!-- src/main/resources/templates/upload_file.html -->
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
-  <title>Subir archivo</title>
+  <title>Subir archivo CSV</title>
   <link rel="stylesheet" th:href="@{/css/upload.css}"/>
 </head>
 <body>
-<h1>Sube tu CSV</h1>
 
-<h1 th:text="${prueba}" ></h1>
 
-<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
-  <input type="file" name="file" accept=".csv" required/>
-  <button type="submit">Subir</button>
-</form>
+<div class="container">
+  <h1>Sube tu CSV</h1>
 
-<!-- Modal: sólo si viene 'message' en el model (flash attribute) -->
+  <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    <div class="drop-zone" id="dropZone">
+      <p id="mensaje_upload">Arrastra y suelta tu archivo .csv aquí</p>
+      <input type="file" id="file_upload" name="file" accept=".csv">
+      <label for="file_upload">Seleccionar archivo</label>
+      <div id="loadingSpinner" class="spinner hidden"></div>
+    </div>
+
+    <!-- Botón de subir alineado a la derecha -->
+    <div class="submit-container">
+      <button type="submit" class="subir-btn">Subir</button>
+    </div>
+  </form>
+
+
+
+  <!-- Modal -->
 <div id="modalOverlay" th:if="${message}">
   <div id="modalBox">
     <p th:text="${message}">Mensaje aquí</p>
 
-    <!-- Si success=true redirige a la selección de parámetros -->
+
     <div th:if="${success}">
+      <img src="/imgs/tick_verde.png" alt="tick" class="imagen">
       <form th:action="@{/createDataset}" method="get">
         <button type="submit">Aceptar</button>
       </form>
     </div>
 
-    <!-- Si success=false vuelve al upload -->
     <div th:if="${!success}">
+      <img src="/imgs/cruz_error.png" alt="error" class="imagen">
       <form th:action="@{/upload}" method="get">
         <button type="submit">Aceptar</button>
       </form>
@@ -37,7 +49,6 @@
   </div>
 </div>
 
-<!-- Script para forzar que el overlay pase de display:none a flex -->
 <script th:if="${message}">
   document.addEventListener('DOMContentLoaded', function() {
     const overlay = document.getElementById('modalOverlay');
@@ -47,6 +58,7 @@
   });
 </script>
 
+<script th:src="@{/js/drag_drop.js}"></script>
 
 </body>
 </html>

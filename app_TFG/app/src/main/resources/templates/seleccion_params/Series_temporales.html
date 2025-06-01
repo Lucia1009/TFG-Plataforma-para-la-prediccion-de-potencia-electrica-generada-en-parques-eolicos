@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="stForm">
+<div th:fragment="stForm" class="Form">
   <h2>Series Temporales</h2>
 
   <label for="st-datos-pasados">Número de unidades de tiempo pasadas que tomar como referencia:</label>
@@ -40,17 +39,23 @@
     <option value="CosineSimilarity">CosineSimilarity</option>
   </select>
 
-  <label for="st-metrics">metrics:</label>
-  <select id="st-metrics" name="st_metrics" multiple>
-    <option value="MeanSquaredError" selected>MeanSquaredError</option>
-    <option value="RootMeanSquaredError">RootMeanSquaredError</option>
-    <option value="MeanAbsoluteError" selected>MeanAbsoluteError</option>
-    <option value="MeanAbsolutePercentageError">MeanAbsolutePercentageError</option>
-    <option value="MeanSquaredLogarithmicError">MeanSquaredLogarithmicError</option>
-    <option value="CosineSimilarity">CosineSimilarity</option>
-    <option value="LogCoshError">LogCoshError</option>
-<!--    <option value="R2Score" selected>R2Score</option>-->
-  </select>
+  <label for="st_metrics">Métricas:</label>
+  <div class="dropdown-multiselect">
+    <button type="button" class="dropdown-toggle">
+      Seleccione las métricas que desee para el test<span class="arrow">▼</span>
+    </button>
+    <div class="dropdown-menu">
+      <label><input type="checkbox" class="form-control-metrica" value="MeanSquaredError"> MeanSquaredError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="RootMeanSquaredError"> RootMeanSquaredError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="MeanAbsoluteError"> MeanAbsoluteError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="MeanAbsolutePercentageError"> MeanAbsolutePercentageError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="MeanSquaredLogarithmicError"> MeanSquaredLogarithmicError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="CosineSimilarity"> CosineSimilarity</label>
+      <label><input type="checkbox" class="form-control-metrica" value="LogCoshError"> LogCoshError</label>
+      <!-- <label><input type="checkbox" class="form-control-metrica" value="R2Score"> R2Score</label> -->
+    </div>
+    <input type="hidden" name="st_metrics" id="st_metrics" />
+  </div>
 
   <!-- capas -->
   <fieldset class="custom-fields">
@@ -79,7 +84,6 @@
     </table>
   </fieldset>
 
-  <!-- template oculto para capas -->
   <template id="st-layer-template">
     <tr class="st-layer-form">
       <td class="layer-name-cell"><!-- JS inyecta aquí el <select> --></td>

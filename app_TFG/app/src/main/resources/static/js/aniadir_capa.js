@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (prefijo === 'st') {
                 const lstmRow = createLSTMFixed();
+
                 container.appendChild(lstmRow);
             }
 
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             outputRow = outRow;
         }
 
-        // función auxiliar para capas dinámicas (igual que antes)
+        // función auxiliar para capas dinámicas
         const applyLayerType = (type, unitsInput, rateInput, actSelect) => {
             if (type === 'Dropout') {
                 unitsInput.style.display = 'none';

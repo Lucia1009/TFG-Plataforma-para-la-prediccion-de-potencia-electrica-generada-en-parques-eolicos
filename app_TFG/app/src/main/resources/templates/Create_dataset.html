@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Seleccione las columnas</title>
-    <link rel="stylesheet" href="../css/seleccionar_columnas.css">
+    <link rel="stylesheet" href="../css/create_dataset.css">
 </head>
 <body>
 <h1>Seleccione las columnas con las que va a trabajar el modelo</h1>
@@ -27,7 +27,7 @@
 
     <h2>Otras columnas</h2>
 
-    <div class="field-group">
+    <div class="checkbox_all">
         <input type="checkbox" id="select-all-columns" />
         <label for="select-all-columns">Seleccionar todas las columnas</label>
     </div>
@@ -38,6 +38,7 @@
     </div>
 
     <div id="tags-container"></div>
+
 
     <datalist id="columnasList">
         <option th:each="col : ${columnas}" th:value="${col}"></option>

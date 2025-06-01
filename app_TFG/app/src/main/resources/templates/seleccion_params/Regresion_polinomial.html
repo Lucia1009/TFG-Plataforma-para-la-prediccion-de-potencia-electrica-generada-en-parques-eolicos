@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="prForm">
+<div th:fragment="prForm" class="Form">
   <h2>Regresión Polinomial</h2>
 
-  <label for="rf-estratificado">
-    <input type="checkbox" id="rf-estratificado"
-           name="estratificado" value="true"/>
-    estratificado
+  <label class="checkbox-label">
+    <input type="checkbox" id="rf-estratificado" name="estratificado" value="true" />
+    <span>estratificado</span>
   </label>
 
   <label for="pr-degree">degree:</label>
@@ -29,17 +28,23 @@
   <label for="pr-epochs">epochs:</label>
   <input type="number" id="pr-epochs" name="epochs" value="10" />
 
-  <label for="pr-metrics">metrics:</label>
-  <select id="pr-metrics" name="pr_metrics" multiple>
-    <option value="MeanSquaredError" selected>MeanSquaredError</option>
-    <option value="RootMeanSquaredError">RootMeanSquaredError</option>
-    <option value="MeanAbsoluteError" selected>MeanAbsoluteError</option>
-    <option value="MeanAbsolutePercentageError">MeanAbsolutePercentageError</option>
-    <option value="MeanSquaredLogarithmicError">MeanSquaredLogarithmicError</option>
-    <option value="CosineSimilarity">CosineSimilarity</option>
-    <option value="LogCoshError">LogCoshError</option>
-    <option value="R2Score" selected>R2Score</option>
-  </select>
+  <label for="pr_metrics">Métricas:</label>
+  <div class="dropdown-multiselect">
+    <button type="button" class="dropdown-toggle">
+      Seleccione las métricas que desee para el test<span class="arrow">▼</span>
+    </button>
+    <div class="dropdown-menu">
+      <label><input type="checkbox" class="form-control-metrica" value="MeanSquaredError"> MeanSquaredError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="RootMeanSquaredError"> RootMeanSquaredError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="MeanAbsoluteError"> MeanAbsoluteError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="MeanAbsolutePercentageError"> MeanAbsolutePercentageError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="MeanSquaredLogarithmicError"> MeanSquaredLogarithmicError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="CosineSimilarity"> CosineSimilarity</label>
+      <label><input type="checkbox" class="form-control-metrica" value="LogCoshError"> LogCoshError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="R2Score"> R2Score</label>
+    </div>
+    <input type="hidden" name="pr_metrics" id="pr_metrics" />
+  </div>
 
   <!-- capas -->
   <fieldset class="custom-fields">
@@ -92,7 +97,5 @@
       </td>
     </tr>
   </template>
-
 </div>
-
 </html>
