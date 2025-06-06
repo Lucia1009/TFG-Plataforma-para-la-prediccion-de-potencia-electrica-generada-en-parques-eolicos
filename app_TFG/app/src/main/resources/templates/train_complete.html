@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <title>Entrenamiento completado</title>
+    <link rel="stylesheet" th:href="@{/css/colores.css}"/>
     <link rel="stylesheet" th:href="@{/css/train_complete.css}" />
+    <link rel="stylesheet" href="../css/cabecera.css" />
 </head>
 <body>
+
+<!-- Inyectamos la cabecera (login/logout/eliminar/cambiar usuario) -->
+<div th:replace="cabecera :: userBar"></div>
 
 <h1>Entrenamiento completado!</h1>
 
@@ -24,6 +29,31 @@
     </tr>
     </tbody>
 </table>
+
+<div>
+    <button class="btn-home" >
+        <a th:href="@{/}">Volver a inicio</a>
+    </button>
+    <button type="button" id="btnGuardar" class="btn-guardar">
+        Guardar modelo
+    </button>
+
+</div>
+
+<div id="modalOverlay">
+    <div class="save-screen">
+        <h1>Guardar Archivo</h1>
+        <form th:action="@{/guardar}" method="post">
+            <label for="file-name">Nombre del archivo sin extensión:</label>
+            <input type="text" id="file-name" name="file_name" placeholder="Modelo_1" required>
+            <button type="submit">Guardar</button>
+        </form>
+        <!-- Botón para cerrar el overlay sin guardar -->
+        <a id="btnCerrar" class="cerrar-btn" th:href="train_complete">Cancelar</a>
+    </div>
+</div>
+
+<script th:src="@{../js/guardar_modelo.js}"></script>
 
 </body>
 </html>

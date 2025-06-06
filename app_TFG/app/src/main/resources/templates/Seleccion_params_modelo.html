@@ -3,44 +3,85 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Selector de Modelos ML</title>
+
+    <!-- 1) Importar colores.css (contiene --color-principal, etc.) -->
+    <link rel="stylesheet" th:href="@{/css/colores.css}" />
+
+    <!-- 2) Importar tu CSS principal de la página -->
     <link rel="stylesheet" th:href="@{/css/seleccion_parametros.css}" />
+
+    <!-- 3) Importar fragmentos.css (estilos comunes a fragmentos) -->
     <link rel="stylesheet" th:href="@{/css/fragmentos.css}" />
+
+    <!-- 4) Importar el CSS de la cabecera -->
+    <link rel="stylesheet" th:href="@{/css/cabecera.css}" />
 </head>
 <body>
-<h1>Selección de parámetros para los Modelos</h1>
 
+<!-- Cabecera (login / usuario autenticado / etc.) -->
+<div th:replace="cabecera :: userBar"></div>
 
-<!-- NAV DE PESTAÑAS -->
-<nav class="tabs">
-    <ul>
-        <li class="active" data-model="rf">Random Forest</li>
-        <li data-model="pr">Regresión Polinomial</li>
-        <li data-model="st">Series Temporales</li>
-    </ul>
-</nav>
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="main-container">
+    <h1>Selección de parámetros para los Modelos</h1>
 
-<form id="modelForm" th:action="@{/model/train}" method="post">
+    <nav class="tabs">
+        <ul>
+            <li class="active" data-model="rf">Random Forest</li>
+            <li data-model="pr">Regresión Polinomial</li>
+            <li data-model="st">Series Temporales</li>
+        </ul>
+    </nav>
 
-    <input type="hidden" id="modelTypeHidden" name="modelType" value="rf"/>
+    <form id="modelForm" th:action="@{/model/train}" method="post">
+        <input type="hidden" id="modelTypeHidden" name="modelType" value="rf"/>
 
-    <div id="model-form-rf" class="model-form"
-         th:insert="~{seleccion_params/Random_forest :: rfForm}"></div>
+        <!-- Fragmento Random Forest -->
+        <div id="model-form-rf" class="model-form"
+             th:insert="~{seleccion_params/Random_forest :: rfForm}"></div>
 
-    <div id="model-form-pr" class="model-form"
-         th:insert="~{seleccion_params/Regresion_polinomial :: prForm}"></div>
+        <!-- Fragmento Regresión Polinomial -->
+        <div id="model-form-pr" class="model-form"
+             th:insert="~{seleccion_params/Regresion_polinomial :: prForm}"></div>
 
-    <div id="model-form-st" class="model-form"
-         th:insert="~{seleccion_params/Series_temporales :: stForm}"></div>
+        <!-- Fragmento Series Temporales -->
+        <div id="model-form-st" class="model-form"
+             th:insert="~{seleccion_params/Series_temporales :: stForm}"></div>
 
-    <div class="button-container">
-        <button type="submit" class="enviar_parametros">Enviar parámetros</button>
+        <div class="button-container">
+            <button type="submit" class="enviar_parametros">Enviar parámetros</button>
+        </div>
+    </form>
+</div>
+<!-- /main-container -->
+
+<!-- OVERLAY OCULTO -->
+<div id="modalOverlay" class="hidden">
+    <div id="modalBox">
+        <p class="overlay-title">Entrenando el modelo</p>
+        <p class="overlay-subtitle">Por favor espere. Esto puede tomar unos minutos</p>
+        <div id="loadingSpinner" class="spinner"></div>
     </div>
-</form>
+</div>
 
-<!-- scripts de tu lógica + pestañas -->
+<!-- SCRIPTS -->
 <script th:src="@{/js/parametros_modelo.js}"></script>
 <script th:src="@{/js/RF_sparse_oblique.js}"></script>
 <script th:src="@{/js/aniadir_capa.js}"></script>
 <script th:src="@{/js/seleccion_metricas.js}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('modelForm');
+        const overlay = document.getElementById('modalOverlay');
+
+        form.addEventListener('submit', function(event) {
+            // (Aquí van tus validaciones de “pr” y “st”…)
+
+            //  Si todo OK, mostramos el overlay:
+            overlay.classList.remove('hidden');
+            overlay.style.pointerEvents = 'auto';
+        });
+    });
+</script>
 </body>
 </html>

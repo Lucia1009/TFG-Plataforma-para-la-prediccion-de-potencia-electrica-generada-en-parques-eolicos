@@ -1,0 +1,47 @@
+/* src/main/resources/static/css/index.css */
+
+body {
+    /* 1) Fondo con la imagen, centrado y cubriendo toda la pantalla */
+    background: url('/imgs/molinos.jpg') no-repeat center center fixed;
+    background-size: cover;
+
+    /* 2) Aseguramos que el contenido no esté pegado a los bordes */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    color: #000;
+    position: relative;
+    font-family: Arial, sans-serif;
+}
+
+/* Contenedor para centrar el contenido en la página */
+.container {
+    margin: 0 auto;
+    padding-top: 5rem;       /* Empujamos el contenido hacia abajo */
+    text-align: center;
+    max-width: 600px;
+}
+
+/* Estilo del título */
+.container h1 {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: #111;
+}
+
+/* Estilos del botón principal */
+.container button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: var(--color-principal);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.container button:hover {
+    background-color: var(--color-resaltado);
+}
+

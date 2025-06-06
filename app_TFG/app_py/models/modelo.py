@@ -10,7 +10,7 @@ class Modelo:
         self.evaluacion = None
         self.tr_size = 0.8
         self.test_size = 0.2
-        
+        self.path = "../../modelos/"
 
     def set_data(self, data):
         self.data = data
@@ -48,3 +48,9 @@ class Modelo:
     def getEvaluacion(self):
         return self.evaluacion
     
+
+    def guardar(self, name):
+        """
+        Guarda el modelo con el nombre indicado.
+        """
+        raise NotImplementedError("guardar() debe implementarse en la subclase")

@@ -1,3 +1,5 @@
+import os
+import pandas as pd
 import tensorflow as tf
 from models.modelo import Modelo
 
@@ -67,8 +69,39 @@ class RedNeuronal(Modelo):
         
                 
     def evaluate(self):
-        
+        """
+        Obtiene la evaluación del modelo.
+        """
+
         eval = self.model.evaluate(self.X_test, self.y_test)
         self.evaluacion = {metric: value for metric, value in zip(self.metrics, eval)}
 
         return self.evaluacion
+    
+    def guardar(self, name):
+        """
+        Guarda el modelo con el nombre indicado.
+        """
+
+        carpeta = os.path.normpath(self.path)
+    
+        try:
+            os.makedirs(carpeta, exist_ok=True)
+        except Exception as e:
+            return f"No se pudo crear la carpeta de modelos: {e}", 500
+
+        # Si name no vino (None o cadena vacía), generamos un nombre basado en timestamp
+        if not name or not isinstance(name, str) or name.strip() == "":
+            timestamp = pd.Timestamp.now().strftime("%Y%m%d_%H%M%S")
+            archivo = f"rn_model_{timestamp}.keras"
+        else:
+            archivo = f"{name.strip()}.keras"
+
+        ruta_completa = os.path.join(carpeta, archivo)
+
+        try:
+            self.model.save(ruta_completa)
+        except Exception as e:
+            return f"Error al guardar el modelo: {e}", 500
+
+        return f"Modelo guardado en {ruta_completa}", 200

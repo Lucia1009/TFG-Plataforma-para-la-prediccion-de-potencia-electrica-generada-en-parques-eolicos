@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS tfgdb;
 -- Switch to the tfgdb database
 USE tfgdb;
 
-
+-- DROP TABLE IF EXISTS modelos;
 CREATE TABLE IF NOT EXISTS modelos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(160) UNIQUE NOT NULL ,

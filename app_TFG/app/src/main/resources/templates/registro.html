@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pantalla de Registro</title>
+    <link rel="stylesheet" href="../css/colores.css" />
+    <link rel="stylesheet" href="../css/login.css" />
+    <!-- Asegúrate de importar también el CSS del modal -->
+    <link rel="stylesheet" href="../css/modalbox.css" />
+</head>
+<body>
+
+<!--
+  El overlay debe cubrir toda la pantalla y estar oculto hasta que haya un mensaje.
+  Usamos th:if para que solo se renderice cuando exista successMessage (o errorMessage
+  en caso de quererlo). Por defecto estará con style="display: none", y el script
+  lo cambiará a "flex" para que se muestre.
+-->
+<div id="modalOverlay" th:if="${successMessage != null and successMessage != ''}">
+    <div id="modalBox">
+        <!-- Mensaje dinámico -->
+        <p th:text="${successMessage}">Mensaje aquí</p>
+
+        <!-- Icono de tick verde -->
+        <img src="/imgs/tick_verde.png" alt="tick" class="imagen" />
+
+        <!-- Botón “Aceptar” con estilo -->
+        <form th:action="@{/usuarios/login}" method="get">
+            <button type="submit" class="modal-button">Aceptar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Notificación de error (si llega mensaje de error) -->
+<div th:if="${errorMessage != null and errorMessage != ''}"
+     class="page-notification error-notification"
+     th:text="${errorMessage}">
+</div>
+
+<!-- Formulario de registro normal -->
+<div class="container">
+    <form class="form-box" action="/usuarios/registro" th:object="${datosUsuario}" method="post">
+        <h2>Registrarse</h2>
+
+        <div class="input-group">
+            <label for="register-name">Nombre Completo</label>
+            <input
+                    type="text"
+                    id="register-name"
+                    name="name"
+                    th:field="${datosUsuario.nombre}"
+                    placeholder="Ejemplo"
+                    required
+            />
+        </div>
+
+        <div class="input-group">
+            <label for="register-email">Correo electrónico</label>
+            <input
+                    type="email"
+                    id="register-email"
+                    name="email"
+                    th:field="${datosUsuario.email}"
+                    placeholder="tucorreo@ejemplo.com"
+                    required
+            />
+        </div>
+
+        <div class="input-group">
+            <label for="register-password">Contraseña</label>
+            <input
+                    type="password"
+                    id="register-password"
+                    name="password"
+                    th:field="${datosUsuario.password}"
+                    placeholder="Introduzca una contraseña"
+                    required
+            />
+            <small class="help-text">
+                La contraseña debe tener entre 8 y 32 caracteres e incluir al menos 3 de estas 4 categorías:
+                mayúsculas, minúsculas, números y caracteres especiales. Máximo 2 caracteres iguales consecutivos.
+            </small>
+        </div>
+
+        <div class="input-group">
+            <label for="register-confirm-password">Confirmar Contraseña</label>
+            <input
+                    type="password"
+                    id="register-confirm-password"
+                    name="confirm_password"
+                    placeholder="Repita su contraseña"
+                    required
+            />
+        </div>
+
+        <div class="dropdown-menu">
+            <label for="rol">Rol:</label>
+            <select id="rol" name="rol" required th:field="${datosUsuario.rol}">
+                <option value="" disabled selected>-- Selecciona un rol --</option>
+                <option th:each="r : ${listaRoles}"
+                        th:value="${r.rol}"
+                        th:text="${r.rol}">
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn">Crear Cuenta</button>
+
+        <p class="text-center">
+            ¿Ya tienes cuenta?
+            <a th:href="@{/usuarios/login}">Inicia sesión aquí</a>
+        </p>
+    </form>
+</div>
+
+<!-- Script que fuerza a mostrar el overlay -->
+<script th:if="${successMessage != null and successMessage != ''}">
+    document.addEventListener('DOMContentLoaded', function() {
+        const overlay = document.getElementById('modalOverlay');
+        if (overlay) {
+            overlay.style.display = 'flex';
+        }
+    });
+</script>
+
+</body>
+</html>

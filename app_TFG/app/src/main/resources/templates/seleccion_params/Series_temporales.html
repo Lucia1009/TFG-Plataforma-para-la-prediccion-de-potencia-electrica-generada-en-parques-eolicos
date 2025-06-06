@@ -4,7 +4,11 @@
   <h2>Series Temporales</h2>
 
   <label for="st-datos-pasados">Número de unidades de tiempo pasadas que tomar como referencia:</label>
-  <input type="number" id="st-datos-pasados" name="datosPasados" th:value="1"/>
+  <input
+          type="number"
+          id="st-datos-pasados"
+          name="datosPasados"
+          th:value="1" />
   <select id="st_unidades_tiempo_pasadas" name="unidades_tiempo_pasadas">
     <option value="minutos">minutos</option>
     <option value="horas">horas</option>
@@ -12,7 +16,11 @@
   </select>
 
   <label for="st-datos-futuros">Número de unidades de tiempo futuras que tomar como referencia:</label>
-  <input type="number" id="st-datos-futuros" name="datosFuturos" th:value="60"/>
+  <input
+          type="number"
+          id="st-datos-futuros"
+          name="datosFuturos"
+          th:value="60" />
   <select id="st_unidades_tiempo_futuras" name="unidades_tiempo_futuras">
     <option value="minutos" selected>minutos</option>
     <option value="horas">horas</option>
@@ -20,10 +28,10 @@
   </select>
 
   <label for="st-epochs">epochs:</label>
-  <input type="number" id="st-epochs" name="epochs" th:value="10"/>
+  <input type="number" id="st-epochs" name="epochs" th:value="10" />
 
   <label for="st-batch-size">batchSize:</label>
-  <input type="number" id="st-batch-size" name="batchSize" th:value="256"/>
+  <input type="number" id="st-batch-size" name="batchSize" th:value="256" />
 
   <label for="st-optimizer">optimizer:</label>
   <select id="st-optimizer" name="optimizer">
@@ -40,22 +48,49 @@
   </select>
 
   <label for="st_metrics">Métricas:</label>
-  <div class="dropdown-multiselect">
+  <!-- Aquí envolvemos las checkboxes con el id que busca el script -->
+  <div id="st-metricas-container" class="dropdown-multiselect">
     <button type="button" class="dropdown-toggle">
       Seleccione las métricas que desee para el test<span class="arrow">▼</span>
     </button>
     <div class="dropdown-menu">
-      <label><input type="checkbox" class="form-control-metrica" value="MeanSquaredError"> MeanSquaredError</label>
-      <label><input type="checkbox" class="form-control-metrica" value="RootMeanSquaredError"> RootMeanSquaredError</label>
-      <label><input type="checkbox" class="form-control-metrica" value="MeanAbsoluteError"> MeanAbsoluteError</label>
-      <label><input type="checkbox" class="form-control-metrica" value="MeanAbsolutePercentageError"> MeanAbsolutePercentageError</label>
-      <label><input type="checkbox" class="form-control-metrica" value="MeanSquaredLogarithmicError"> MeanSquaredLogarithmicError</label>
-      <label><input type="checkbox" class="form-control-metrica" value="CosineSimilarity"> CosineSimilarity</label>
-      <label><input type="checkbox" class="form-control-metrica" value="LogCoshError"> LogCoshError</label>
-      <!-- <label><input type="checkbox" class="form-control-metrica" value="R2Score"> R2Score</label> -->
+      <label>
+        <input type="checkbox" class="form-control-metrica" value="MeanSquaredError" />
+        MeanSquaredError
+      </label>
+      <label>
+        <input type="checkbox" class="form-control-metrica" value="RootMeanSquaredError" />
+        RootMeanSquaredError
+      </label>
+      <label>
+        <input type="checkbox" class="form-control-metrica" value="MeanAbsoluteError" />
+        MeanAbsoluteError
+      </label>
+      <label>
+        <input type="checkbox" class="form-control-metrica" value="MeanAbsolutePercentageError" />
+        MeanAbsolutePercentageError
+      </label>
+      <label>
+        <input type="checkbox" class="form-control-metrica" value="MeanSquaredLogarithmicError" />
+        MeanSquaredLogarithmicError
+      </label>
+      <label>
+        <input type="checkbox" class="form-control-metrica" value="CosineSimilarity" />
+        CosineSimilarity
+      </label>
+      <label>
+        <input type="checkbox" class="form-control-metrica" value="LogCoshError" />
+        LogCoshError
+      </label>
+      <!-- <label><input type="checkbox" class="form-control-metrica" value="R2Score" /> R2Score</label> -->
     </div>
     <input type="hidden" name="st_metrics" id="st_metrics" />
   </div>
+
+  <!-- Mensaje de error oculto por defecto -->
+  <p id="st-metrics-error" class="error-message" style="display: none;">
+    Debe seleccionar al menos una métrica.
+  </p>
 
   <!-- capas -->
   <fieldset class="custom-fields">
@@ -86,10 +121,20 @@
 
   <template id="st-layer-template">
     <tr class="st-layer-form">
-      <td class="layer-name-cell"><!-- JS inyecta aquí el <select> --></td>
+      <td class="layer-name-cell">
+        <!-- JS inyecta aquí el <select> -->
+      </td>
       <td class="layer-units-cell">
-        <input type="number" name="st_units" step="1" placeholder="Unidades"/>
-        <input type="number" name="st_rate" step="0.01" min="0" max="1" placeholder="Ratio" style="display:none"/>
+        <input type="number" name="st_units" step="1" placeholder="Unidades" />
+        <input
+                type="number"
+                name="st_rate"
+                step="0.01"
+                min="0"
+                max="1"
+                placeholder="Ratio"
+                style="display:none"
+        />
       </td>
       <td class="layer-activation-cell">
         <select name="st_activation">
@@ -99,7 +144,9 @@
         </select>
       </td>
       <td>
-        <button type="button" class="st-remove-layer-btn button-link">Eliminar</button>
+        <button type="button" class="st-remove-layer-btn button-link">
+          Eliminar
+        </button>
       </td>
     </tr>
   </template>

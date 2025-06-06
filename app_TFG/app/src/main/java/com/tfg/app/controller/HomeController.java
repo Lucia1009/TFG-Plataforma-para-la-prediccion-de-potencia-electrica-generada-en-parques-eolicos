@@ -12,6 +12,11 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("index")
+    public String index2() {
+        return "index";
+    }
+
     @GetMapping("/ir/upload")
     public String irUpload(ModelMap model) {
         model.addAttribute("file", "");

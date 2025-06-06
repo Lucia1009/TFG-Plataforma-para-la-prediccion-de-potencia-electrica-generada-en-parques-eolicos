@@ -54,7 +54,7 @@ body {
 #modalBox button {
     margin-top: 5px;
     padding: 0.5em 1em;
-    background: #0073aa;
+    background: var(--color-principal);
     color: #fff;
     border: none;
     border-radius: 3px;
@@ -62,7 +62,7 @@ body {
 }
 
 #modalBox button:hover {
-    background: #005177;
+    background: var(--color-resaltado);
 }
 
 .imagen{
@@ -126,7 +126,7 @@ body {
 .subir-btn {
     margin-top: 20px;
     padding: 10px 10px;
-    background: #28a745;
+    background: var(--color-principal);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -135,7 +135,7 @@ body {
 }
 
 .subir-btn:hover {
-    background: #1e7e34;
+    background: var(--color-resaltado);
 }
 
 /* Drop zone actualizado */
@@ -162,16 +162,16 @@ body {
     display: inline-block;
     padding: 8px 24px;
     margin-bottom: 10px;
-    background: #0073aa;
+    background: var(--color-principal);
     cursor: pointer;
     border-radius: 5px;
-    border: 1px solid #0073aa;
+    border: 1px solid var(--color-principal);
     color: white;
 }
 
 .drop-zone label:hover {
-    background: #005177;
-    border-color: #005177;
+    background: var(--color-resaltado);
+    border-color: var(--color-resaltado);
 }
 
 
@@ -198,13 +198,13 @@ body {
 
 /* Spinner estilo animado */
 .spinner {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #0073aa;
-    border-radius: 50%;
     width: 40px;
     height: 40px;
+    margin: 0 auto;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top-color: var(--color-principal);
+    border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin: 10px auto 0;
 }
 
 @keyframes spin {
