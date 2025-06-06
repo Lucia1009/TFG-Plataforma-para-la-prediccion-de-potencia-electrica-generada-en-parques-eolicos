@@ -29,22 +29,28 @@
   <input type="number" id="pr-epochs" name="epochs" value="10" />
 
   <label for="pr_metrics">Métricas:</label>
-  <div class="dropdown-multiselect">
+  <!-- Agrupamos las casillas en el div con id pr-metricas-container -->
+  <div id="pr-metricas-container" class="dropdown-multiselect">
     <button type="button" class="dropdown-toggle">
       Seleccione las métricas que desee para el test<span class="arrow">▼</span>
     </button>
     <div class="dropdown-menu">
-      <label><input type="checkbox" class="form-control-metrica" value="MeanSquaredError"> MeanSquaredError</label>
-      <label><input type="checkbox" class="form-control-metrica" value="RootMeanSquaredError"> RootMeanSquaredError</label>
-      <label><input type="checkbox" class="form-control-metrica" value="MeanAbsoluteError"> MeanAbsoluteError</label>
-      <label><input type="checkbox" class="form-control-metrica" value="MeanAbsolutePercentageError"> MeanAbsolutePercentageError</label>
-      <label><input type="checkbox" class="form-control-metrica" value="MeanSquaredLogarithmicError"> MeanSquaredLogarithmicError</label>
-      <label><input type="checkbox" class="form-control-metrica" value="CosineSimilarity"> CosineSimilarity</label>
-      <label><input type="checkbox" class="form-control-metrica" value="LogCoshError"> LogCoshError</label>
-      <label><input type="checkbox" class="form-control-metrica" value="R2Score"> R2Score</label>
+      <label><input type="checkbox" class="form-control-metrica" value="MeanSquaredError" /> MeanSquaredError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="RootMeanSquaredError" /> RootMeanSquaredError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="MeanAbsoluteError" /> MeanAbsoluteError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="MeanAbsolutePercentageError" /> MeanAbsolutePercentageError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="MeanSquaredLogarithmicError" /> MeanSquaredLogarithmicError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="CosineSimilarity" /> CosineSimilarity</label>
+      <label><input type="checkbox" class="form-control-metrica" value="LogCoshError" /> LogCoshError</label>
+      <label><input type="checkbox" class="form-control-metrica" value="R2Score" /> R2Score</label>
     </div>
     <input type="hidden" name="pr_metrics" id="pr_metrics" />
   </div>
+
+  <!-- Párrafo de error oculto por defecto -->
+  <p id="pr-metrics-error" class="error-message" style="display: none;">
+    Debe seleccionar al menos una métrica.
+  </p>
 
   <!-- capas -->
   <fieldset class="custom-fields">
@@ -79,8 +85,16 @@
         <!-- JS inyecta aquí el <select> en dinámicas, o texto en fijas -->
       </td>
       <td class="layer-units-cell">
-        <input type="number" name="pr_units" step="1" placeholder="Unidades"/>
-        <input type="number" name="pr_rate" step="0.01" min="0" max="1" placeholder="Ratio" style="display:none"/>
+        <input type="number" name="pr_units" step="1" placeholder="Unidades" />
+        <input
+                type="number"
+                name="pr_rate"
+                step="0.01"
+                min="0"
+                max="1"
+                placeholder="Ratio"
+                style="display:none"
+        />
       </td>
       <td class="layer-activation-cell">
         <select name="pr_activation">

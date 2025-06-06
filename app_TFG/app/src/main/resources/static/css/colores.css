@@ -1,0 +1,16 @@
+
+:root {
+    /* Colores primarios */
+    --color-principal:    #28a745;
+    --color-secundario:   #007bff;
+    --color-fondo:        #f9f9f9;
+    --color-texto:        #1a1a1a;
+
+    /* Estado hover, error, acento, etc. */
+    --color-resaltado:        #1e7e34;
+    --color-error:        #dc3545;
+    --color-exito:        #198754;
+
+    /* Tipografía*/
+    font-family: Arial, sans-serif;
+}

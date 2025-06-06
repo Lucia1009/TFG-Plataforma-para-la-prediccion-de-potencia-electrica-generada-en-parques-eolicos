@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8" /><title>Subir archivo</title></head>
+<head>
+    <meta charset="UTF-8" />
+    <title>Subir archivo</title>
+
+    <!-- 1) Estilos globales -->
+    <link rel="stylesheet" th:href="@{/css/colores.css}" />
+
+    <!-- 2) Estilos de fondo y botón específicos para esta página -->
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+
+    <!-- 3) Estilos de la cabecera (login/logout) -->
+    <link rel="stylesheet" th:href="@{/css/cabecera.css}" />
+</head>
 <body>
-<h1>Sube tu CSV</h1>
-<form th:action="@{/ir/upload}" method="get">
-    <button type="submit">Subir</button>
-</form>
+<!-- Inyectamos la cabecera (login/logout/eliminar/cambiar usuario) -->
+<div th:replace="cabecera :: userBar"></div>
 
-
-
+<!-- Contenedor centrado -->
+<div class="container">
+    <h1>Sube tu CSV</h1>
+    <form th:action="@{/ir/upload}" method="get">
+        <button type="submit">Subir</button>
+    </form>
+</div>
 </body>
 </html>

@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Seleccione las columnas</title>
+    <link rel="stylesheet" href="../css/colores.css">
     <link rel="stylesheet" href="../css/create_dataset.css">
+    <link rel="stylesheet" href="../css/cabecera.css" />
 </head>
 <body>
+
+<!-- Inyectamos la cabecera (login/logout/eliminar/cambiar usuario) -->
+<div th:replace="cabecera :: userBar"></div>
+
 <h1>Seleccione las columnas con las que va a trabajar el modelo</h1>
 
 <form id="ColumnasForm" th:action="@{/createDataset}" method="post">

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pantalla de Login</title>
+  <link rel="stylesheet" href="../css/colores.css" />
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
+<body>
+<div class="container">
+  <form class="form-box"
+        th:action="@{/usuarios/login}"
+        method="post">
+    <h2>Iniciar Sesión</h2>
+
+    <!-- Mostrar mensaje si hubo error de inicio de sesión -->
+    <div th:if="${param.error}"
+         class="page-notification error-notification"
+         th:text="'El correo o la contraseña son incorrectos'">
+    </div>
+
+    <!-- Mostrar mensaje si se cerró sesión correctamente -->
+    <div th:if="${param.logout} and !${param.eliminado}"
+         class="page-notification logout-notification"
+         th:text="'Has cerrado sesión correctamente.'">
+    </div>
+
+    <!-- Si eliminado=true, mostrar mensaje “cuenta eliminada” -->
+    <div th:if="${param.eliminado}"
+         class="page-notification logout-notification"
+         th:text="'Tu cuenta ha sido eliminada con éxito.'">
+    </div>
+
+
+    <div class="input-group">
+      <label for="login-email">Correo electrónico</label>
+      <!-- El atributo name="email" debe coincidir con usernameParameter("email") en SecurityConfig -->
+      <input type="email"
+             id="login-email"
+             name="email"
+             placeholder="tucorreo@ejemplo.com"
+             required />
+    </div>
+
+    <div class="input-group">
+      <label for="login-password">Contraseña</label>
+      <!-- El atributo name="password" debe coincidir con passwordParameter("password") en SecurityConfig -->
+      <input type="password"
+             id="login-password"
+             name="password"
+             placeholder="Introduzca su contraseña"
+             required />
+    </div>
+
+    <button type="submit" class="btn">Entrar</button>
+    <p class="text-center">
+      ¿No tienes cuenta?
+      <a th:href="@{/usuarios/registro}">Regístrate aquí</a>
+    </p>
+  </form>
+</div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 # models/recibir_model.py
 import traceback
 from flask import Blueprint, jsonify, request
+import pandas as pd
 from archivos.upload import data
 from models.RF import RF
 from models.PR import PR
@@ -8,6 +9,7 @@ from models.ST import ST
 
 train_bp = Blueprint('train', __name__)
 eval_bp = Blueprint('eval', __name__)
+save_bp = Blueprint('save', __name__)
 
 modelo = None
 
@@ -74,3 +76,16 @@ def get_eval():
     if eval is None:
         return jsonify({'error': 'No se ha entrenado ningún modelo o no hay evaluación disponible', 'evaluacion': None}), 400
     return jsonify({'mensaje': 'Evaluación del modelo obtenida correctamente', 'evaluacion': eval}), 200
+
+@save_bp.route('/save_model', methods=['POST'])
+def save_model():
+    global modelo
+
+    if modelo is None:
+        return jsonify({'error': 'No se ha entrenado ningún modelo'}), 400
+
+    name = request.get_data(as_text=True)
+    print("PYTHON: Nombre del modelo a guardar:", name, flush=True)
+    respuesta, codigo = modelo.guardar(name)
+
+    return jsonify({'mensaje': respuesta}), codigo

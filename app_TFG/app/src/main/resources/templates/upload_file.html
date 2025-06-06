@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8"/>
   <title>Subir archivo CSV</title>
+  <link rel="stylesheet" th:href="@{/css/colores.css}"/>
   <link rel="stylesheet" th:href="@{/css/upload.css}"/>
+  <link rel="stylesheet" href="../css/cabecera.css" />
 </head>
 <body>
 
+<!-- Inyectamos la cabecera (login/logout/eliminar/cambiar usuario) -->
+<div th:replace="cabecera :: userBar"></div>
 
 <div class="container">
   <h1>Sube tu CSV</h1>

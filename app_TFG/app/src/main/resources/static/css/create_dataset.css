@@ -23,7 +23,7 @@ h1 {
 
 h2 {
     margin-top: 2em;
-    color: #0073aa;
+    color: var(--color-principal);
     font-size: 1.4em;
 }
 
@@ -48,7 +48,7 @@ h2 {
 }
 
 .field-group input[type="text"]:focus {
-    border-color: #0073aa;
+    border-color: var(--color-principal);
     outline: none;
 }
 
@@ -68,14 +68,14 @@ h2 {
 }
 
 .dynamic-section input[type="text"]:focus {
-    border-color: #0073aa;
+    border-color: var(--color-principal);
     outline: none;
 }
 
 .dynamic-section button {
     padding: 0.6em 1em;
     font-size: 1em;
-    background-color: #0073aa;
+    background-color: var(--color-principal);
     color: white;
     border: none;
     border-radius: 5px;
@@ -83,7 +83,7 @@ h2 {
 }
 
 .dynamic-section button:hover {
-    background-color: #005b88;
+    background-color: var(--color-resaltado);
 }
 
 #tags-container {
@@ -147,7 +147,7 @@ h2 {
 .actions button {
     padding: 0.6em 1.2em;
     font-size: 1em;
-    background-color: #28a745;
+    background-color: var(--color-principal);
     color: white;
     border: none;
     border-radius: 5px;
@@ -155,7 +155,7 @@ h2 {
 }
 
 .actions button:hover {
-    background-color: #1e7e34;
+    background-color: var(--color-resaltado);
 }
 
 /* checkbox */

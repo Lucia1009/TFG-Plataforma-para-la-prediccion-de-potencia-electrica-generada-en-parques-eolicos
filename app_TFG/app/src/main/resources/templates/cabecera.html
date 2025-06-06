@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<!-- Mostrar notificación de ÉXITO (si successMessage no está vacío) -->
+<div th:if="${successMessage != null and successMessage != ''}"
+     class="top-notification success-notification"
+     th:text="${successMessage}">
+</div>
+
+<!-- Mostrar notificación de ERROR (si errorMessage no está vacío) -->
+<div th:if="${errorMessage != null and errorMessage != ''}"
+     class="top-notification error-notification"
+     th:text="${errorMessage}">
+</div>
+
+<!-- Fragmento de la barra superior -->
+<div th:fragment="userBar">
+    <header class="topbar">
+        <div class="user-menu" tabindex="0">
+            <a href="#" class="user-icon">
+                <img th:src="@{/imgs/icono_usuario.png}" alt="icono_usuario">
+                <span sec:authentication="name">Usuario</span>
+            </a>
+            <div class="user-menu-dropdown">
+                <a th:href="@{/usuarios/login}" class="change-user">
+                    Cambiar de usuario
+                </a>
+                <a th:href="@{/usuarios/logout}">Cerrar sesión</a>
+                <a th:href="@{/usuarios/eliminar}" class="delete-account"
+                   onclick="return confirm('¿Estás seguro de eliminar tu cuenta?');">
+                    Eliminar cuenta
+                </a>
+            </div>
+        </div>
+    </header>
+</div>
+</body>
+</html>
